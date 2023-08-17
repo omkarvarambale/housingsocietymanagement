@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="8ba279e143714796826c1a90e5a380d0" Name="Diagram1" ZoomLevel="64">
+        <EntityTypeShape EntityType="ProjectModel.advertise" Width="1.5" PointX="3" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectModel.complain" Width="1.5" PointX="3" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectModel.event" Width="1.5" PointX="3" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectModel.management" Width="1.5" PointX="3" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectModel.member" Width="1.5" PointX="3" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectModel.user" Width="1.5" PointX="0.75" PointY="7.125" IsExpanded="true" />
+        <AssociationConnector Association="ProjectModel.FK_advertise_ToTable" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectModel.FK_complain_ToTable" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectModel.FK_event_ToTable" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectModel.FK_management_ToTable" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectModel.FK_members_ToTable" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
