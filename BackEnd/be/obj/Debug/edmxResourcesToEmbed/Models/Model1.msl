@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ProjectModelStoreContainer" CdmEntityContainer="ProjectEntities1">
+    <EntitySetMapping Name="advertises">
+      <EntityTypeMapping TypeName="ProjectModel.advertise">
+        <MappingFragment StoreEntitySet="advertise">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="image" ColumnName="image" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="userId" ColumnName="userId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="complains">
+      <EntityTypeMapping TypeName="ProjectModel.complain">
+        <MappingFragment StoreEntitySet="complain">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="subject" ColumnName="subject" />
+          <ScalarProperty Name="detail" ColumnName="detail" />
+          <ScalarProperty Name="userId" ColumnName="userId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="events">
+      <EntityTypeMapping TypeName="ProjectModel.event">
+        <MappingFragment StoreEntitySet="event">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="eventname" ColumnName="eventname" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="place" ColumnName="place" />
+          <ScalarProperty Name="eventdate" ColumnName="eventdate" />
+          <ScalarProperty Name="eventtime" ColumnName="eventtime" />
+          <ScalarProperty Name="eventimage" ColumnName="eventimage" />
+          <ScalarProperty Name="userId" ColumnName="userId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="managements">
+      <EntityTypeMapping TypeName="ProjectModel.management">
+        <MappingFragment StoreEntitySet="management">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="img" ColumnName="img" />
+          <ScalarProperty Name="phoneNo" ColumnName="phoneNo" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="position" ColumnName="position" />
+          <ScalarProperty Name="userId" ColumnName="userId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="members">
+      <EntityTypeMapping TypeName="ProjectModel.member">
+        <MappingFragment StoreEntitySet="members">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="image" ColumnName="image" />
+          <ScalarProperty Name="relation" ColumnName="relation" />
+          <ScalarProperty Name="gender" ColumnName="gender" />
+          <ScalarProperty Name="age" ColumnName="age" />
+          <ScalarProperty Name="profession" ColumnName="profession" />
+          <ScalarProperty Name="userId" ColumnName="userId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="users">
+      <EntityTypeMapping TypeName="ProjectModel.user">
+        <MappingFragment StoreEntitySet="user">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="fname" ColumnName="fname" />
+          <ScalarProperty Name="lname" ColumnName="lname" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="flatno" ColumnName="flatno" />
+          <ScalarProperty Name="familymember" ColumnName="familymember" />
+          <ScalarProperty Name="mobileno" ColumnName="mobileno" />
+          <ScalarProperty Name="profession" ColumnName="profession" />
+          <ScalarProperty Name="image" ColumnName="image" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,183 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ProjectModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="advertise">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="image" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="userId" Type="Int32" />
+    <NavigationProperty Name="user" Relationship="Self.FK_advertise_ToTable" FromRole="advertise" ToRole="user" />
+  </EntityType>
+  <EntityType Name="complain">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="subject" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="detail" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <Property Name="userId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="user" Relationship="Self.FK_complain_ToTable" FromRole="complain" ToRole="user" />
+  </EntityType>
+  <EntityType Name="event">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="eventname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="place" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="eventdate" Type="DateTime" Precision="0" />
+    <Property Name="eventtime" Type="Time" Precision="0" />
+    <Property Name="eventimage" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="userId" Type="Int32" />
+    <NavigationProperty Name="user" Relationship="Self.FK_event_ToTable" FromRole="event" ToRole="user" />
+  </EntityType>
+  <EntityType Name="management">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="img" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="phoneNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="position" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="userId" Type="Int32" />
+    <NavigationProperty Name="user" Relationship="Self.FK_management_ToTable" FromRole="management" ToRole="user" />
+  </EntityType>
+  <EntityType Name="member">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="image" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="relation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="gender" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="age" Type="Int32" />
+    <Property Name="profession" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="userId" Type="Int32" />
+    <NavigationProperty Name="user" Relationship="Self.FK_members_ToTable" FromRole="members" ToRole="user" />
+  </EntityType>
+  <EntityType Name="user">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="fname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="lname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="flatno" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="familymember" Type="Int32" />
+    <Property Name="mobileno" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="profession" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="image" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="advertises" Relationship="Self.FK_advertise_ToTable" FromRole="user" ToRole="advertise" />
+    <NavigationProperty Name="complains" Relationship="Self.FK_complain_ToTable" FromRole="user" ToRole="complain" />
+    <NavigationProperty Name="events" Relationship="Self.FK_event_ToTable" FromRole="user" ToRole="event" />
+    <NavigationProperty Name="managements" Relationship="Self.FK_management_ToTable" FromRole="user" ToRole="management" />
+    <NavigationProperty Name="members" Relationship="Self.FK_members_ToTable" FromRole="user" ToRole="members" />
+  </EntityType>
+  <Association Name="FK_advertise_ToTable">
+    <End Role="user" Type="Self.user" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="advertise" Type="Self.advertise" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="advertise">
+        <PropertyRef Name="userId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_complain_ToTable">
+    <End Role="user" Type="Self.user" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="complain" Type="Self.complain" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="complain">
+        <PropertyRef Name="userId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_event_ToTable">
+    <End Role="user" Type="Self.user" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="event" Type="Self.event" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="event">
+        <PropertyRef Name="userId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_management_ToTable">
+    <End Role="user" Type="Self.user" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="management" Type="Self.management" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="management">
+        <PropertyRef Name="userId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_members_ToTable">
+    <End Role="user" Type="Self.user" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="members" Type="Self.member" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="members">
+        <PropertyRef Name="userId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ProjectEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="advertises" EntityType="Self.advertise" />
+    <EntitySet Name="complains" EntityType="Self.complain" />
+    <EntitySet Name="events" EntityType="Self.event" />
+    <EntitySet Name="managements" EntityType="Self.management" />
+    <EntitySet Name="members" EntityType="Self.member" />
+    <EntitySet Name="users" EntityType="Self.user" />
+    <AssociationSet Name="FK_advertise_ToTable" Association="Self.FK_advertise_ToTable">
+      <End Role="user" EntitySet="users" />
+      <End Role="advertise" EntitySet="advertises" />
+    </AssociationSet>
+    <AssociationSet Name="FK_complain_ToTable" Association="Self.FK_complain_ToTable">
+      <End Role="user" EntitySet="users" />
+      <End Role="complain" EntitySet="complains" />
+    </AssociationSet>
+    <AssociationSet Name="FK_event_ToTable" Association="Self.FK_event_ToTable">
+      <End Role="user" EntitySet="users" />
+      <End Role="event" EntitySet="events" />
+    </AssociationSet>
+    <AssociationSet Name="FK_management_ToTable" Association="Self.FK_management_ToTable">
+      <End Role="user" EntitySet="users" />
+      <End Role="management" EntitySet="managements" />
+    </AssociationSet>
+    <AssociationSet Name="FK_members_ToTable" Association="Self.FK_members_ToTable">
+      <End Role="user" EntitySet="users" />
+      <End Role="members" EntitySet="members" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
