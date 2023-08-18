@@ -1,0 +1,84 @@
+MSSQL Server Database creation::17-08-2023 04:09 PM::
+
+user:
+CREATE TABLE [dbo].[user] (
+    [Id]           INT           IDENTITY (1, 1) NOT NULL,
+    [fname]        VARCHAR (50)  NULL,
+    [lname]        VARCHAR (50)  NULL,
+    [email]        VARCHAR (100) NOT NULL,
+    [password]     VARCHAR (100) NOT NULL,
+    [flatno]       VARCHAR (25)  NULL,
+    [familymember] INT           NULL,
+    [mobileno]     VARCHAR (10)  NULL,
+    [profession]   VARCHAR (100) NULL,
+    [image]        VARCHAR (500) NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC),
+    UNIQUE NONCLUSTERED ([email] ASC)
+);
+
+
+advertise:
+CREATE TABLE [dbo].[advertise]
+(
+	[Id] INT NOT NULL PRIMARY KEY identity, 
+    [image] VARCHAR(500) NULL, 
+    [date] DATE NULL, 
+    [userId] INT NOT NULL, 
+    CONSTRAINT [FK_advertise_ToTable] FOREIGN KEY ([userId]) REFERENCES [user]([Id])
+	ON DELETE CASCADE
+);
+
+
+member:
+CREATE TABLE [dbo].[members] (
+    [Id]         INT           IDENTITY (1, 1) NOT NULL,
+    [name]       VARCHAR (50)  NULL,
+    [image]      VARCHAR (500) NULL,
+    [relation]   VARCHAR (50)  NULL,
+    [gender]     VARCHAR (10)  NULL,
+    [age]        INT           NULL,
+    [profession] VARCHAR (50)  NULL,
+    [userId]     INT           NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [FK_members_ToTable] FOREIGN KEY ([userId]) REFERENCES [dbo].[user] ([Id]) ON DELETE CASCADE
+);
+
+
+
+complain:
+CREATE TABLE [dbo].[complain] (
+    [Id]      INT            IDENTITY (1, 1) NOT NULL,
+    [subject] VARCHAR (200)  NULL,
+    [detail]  VARCHAR (1000) NULL,
+    [userId]  INT            NOT NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [FK_complain_ToTable] FOREIGN KEY ([userId]) REFERENCES [dbo].[user] ([Id]) ON DELETE CASCADE
+);
+
+event:
+CREATE TABLE [dbo].[event] (
+    [Id]          INT           IDENTITY (1, 1) NOT NULL,
+    [eventname]   VARCHAR (50)  NULL,
+    [description] VARCHAR (200) NULL,
+    [place]       VARCHAR (100) NULL,
+    [eventdate]   DATE      NULL,
+    [eventtime]  TIME(0) NULL,
+    [eventimage]      VARCHAR(500)           NULL,
+    [userId] INT NULL, 
+    PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [FK_event_ToTable] FOREIGN KEY ([userId]) REFERENCES [dbo].[user] ([Id]) ON DELETE CASCADE
+);
+
+
+management:
+CREATE TABLE [dbo].[management] (
+    [Id]       INT           IDENTITY (1, 1) NOT NULL,
+    [name]     VARCHAR (100) NULL,
+    [img]      VARCHAR (500) NULL,
+    [phoneNo]  VARCHAR (50)  NULL,
+    [email]    VARCHAR (50)  NULL,
+    [position] VARCHAR (50)  NULL,
+    [userId]   INT           NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [FK_management_ToTable] FOREIGN KEY ([userId]) REFERENCES [dbo].[user] ([Id]) ON DELETE CASCADE
+);
