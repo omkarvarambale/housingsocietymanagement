@@ -2,6 +2,7 @@ import "../node_modules/jquery/dist/jquery.min.js"
 import "../node_modules/bootstrap/dist/js/bootstrap.min.js"
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 // import "./css/homepage.css";
+import './App.css';
 import { useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 //import HomePage from "./homepage.jsx";
@@ -14,6 +15,8 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import Home from "./Home.js";
 import AddUser from "./addUser.js";
 import UpdateUser from "./updateUser.js";
+import UserLogin from "./userLogin.js";
+import SignUp from "./signup.js";
 //import updateUser from "../updateUser.js";
 //import UpdateQuote from "./update.jsx";
 
@@ -33,22 +36,26 @@ import UpdateUser from "./updateUser.js";
 
 
 function Lander() {
-    var [buttonState, setButtonState] = useState({home:"", logIn:"",SignUp:""});
+
+
+
+
+
+
+    var [buttonState, setButtonState] = useState({ home: "", logIn: "", SignUp: "" });
     var navi = useNavigate();
-    //var login = window.localStorage.getItem("login") == "true";//we get user is logged in or not
-
-
+    var login = window.sessionStorage.getItem("login") == "true";//we get user is logged in or not
 
 
     function goToHomePage() {
         navi("/");
     }
- 
+
     function goToSignUp() {
-        navi("/");
+        navi("/user/signup");
     }
     function goToLogIn() {
-        navi("/");
+        navi("/user/login");
     }
 
 
@@ -76,8 +83,7 @@ function Lander() {
     return (
 
 
-
-        <div style={{overflow:"hidden"}}>
+        <div className="background" style={{ overflow: "hidden" }}>
             <div style={{ textAlign: "right", padding: 5 + "px" }}>
                 Mobile Number : 8805686099
             </div>
@@ -90,33 +96,37 @@ function Lander() {
 
 
                 <div>
-                {/* {login ? (
-                    <div className="btn-group col-md-2 TitleDiv" role="group" style={{ textAlign: "center" }}>
-                    <button type="button" className="btn HeaderButton"      onClick={goToHomePage}>Home</button>
-                    </div>
+                    {login ? (
+                        <div className="btn-group col-md-2 TitleDiv" role="group" style={{ textAlign: "center" }}>
+                            <button type="button" className="btn HeaderButton" onClick={goToHomePage}>Home</button>
+                        </div>
                     ) : (
-                    <div className="btn-group col-md-4 TitleDiv" role="group" style={{ textAlign: "center" }}>
-                    <button type="button" className="btn HeaderButton" disabled={buttonState.logIn}     onClick={goToLogIn}>Login</button>
-                    <button type="button" className="btn HeaderButton" disabled={buttonState.signUp}    onClick={goToSignUp}>Sign up</button>
-                    </div>
-                )} */}
+                        <div className="btn-group col-md-4 TitleDiv" role="group" style={{ textAlign: "center" }}>
+                            <button type="button" className="btn HeaderButton" style={{color:buttonState.logIn}} onClick={goToLogIn}>Login</button>
+                            <button type="button" className="btn HeaderButton" style={{color:buttonState.SignUp}} onClick={goToSignUp}>Sign up</button>
+
+                        </div>
+                    )}
                 </div>
 
-                
 
 
-                
+
+
             </div>
             <Routes>
-                <Route path="/" element={<Home></Home>}></Route>
+                <Route path="/" element={<Home setButtonState={setButtonState}></Home>}></Route>
                 {/* <Route path="/user/login" element={<Login setButtonState={setButtonState}></Login>}></Route>
                 <Route path="/user/signup" element={<SignUp setButtonState={setButtonState}></SignUp>}></Route>
                 <Route path="/quote/favouritequote" element={<FavQT></FavQT>}></Route>
                 <Route path="/quote/myquote" element={<MyQT></MyQT>}></Route>*/}
-                <Route path="/user/add" element={<AddUser></AddUser>}></Route>
+                <Route path="/user/signup" element={<SignUp setButtonState={setButtonState}></SignUp>}></Route>
+                <Route path="/user/login" element={<UserLogin setButtonState={setButtonState}></UserLogin>}></Route>
+                <Route path="/user/add" element={<AddUser setButtonState={setButtonState}></AddUser>}></Route>
                 <Route path="/user/update/:userId" element={<UpdateUser></UpdateUser>} ></Route>
+                {/* <Route path="/bg" element={} ></Route> */}
                 {/* <Route path="/quote/update" element={<UpdateQuote></UpdateQuote>}></Route> */}
-                
+
             </Routes>
             <div className="Footer">
                 <p>This site is created by Omkar Adagale<br /> </p>
@@ -143,7 +153,7 @@ function Lander() {
         //             <button type="button" className="btn HeaderButton" disabled={buttonState.home}      onClick={goToHomePage}>Home</button>
         //             <button type="button" className="btn HeaderButton" disabled={buttonState.logIn}     onClick={goToLogIn}>Login</button>
         //             <button type="button" className="btn HeaderButton" disabled={buttonState.signUp}    onClick={goToSignUp}>Sign up</button>
-                    
+
         //         </div>
         //     </div>
         //     <Routes>
@@ -155,7 +165,7 @@ function Lander() {
         //         <Route path="/user/update" element={<Update></Update>}></Route>
         //         <Route path="/quote/add" element={<AddQuote></AddQuote>}></Route>
         //         <Route path="/quote/update" element={<UpdateQuote></UpdateQuote>}></Route>
-                
+
         //     </Routes>
         //     <div className="Footer">
         //         <p>This site is created by Gaurav Bang  and Omkar Adagale<br /> </p>

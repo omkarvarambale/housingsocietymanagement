@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Route, Routes, useNavigate } from "react-router-dom";
 
 
-function AddUser() {
+function SignUp(props) {
 
-
+    var login = window.sessionStorage.getItem("login") == "true";
     var navi = useNavigate();
 
     function goToHomePage() {
@@ -17,6 +17,18 @@ function AddUser() {
         "flatno": "", "familymember": "", "mobileno": "",
         "profession": "", "image": ""
     });
+
+    var temp = {
+        home:"", 
+        logIn:"",
+        signUp:"red",
+    }
+
+    useEffect(()=>{props.setButtonState(temp)
+        debugger;
+        //if(login)
+        //navi("/") ;  
+    } , []);
 
     var userDataChange = (x) => {
         userData[x.target.name] = x.target.value;
@@ -112,7 +124,7 @@ function AddUser() {
 
 }
 
-export default AddUser;
+export default SignUp;
 
 
 

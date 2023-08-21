@@ -1,4 +1,4 @@
-.App {
+/* .App {
   text-align: center;
 }
 
@@ -36,3 +36,13 @@
     transform: rotate(360deg);
   }
 }
+
+
+.background {
+  background: url(/public/bc1.jpeg) ;
+  width: 100%;
+  he
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+} */
