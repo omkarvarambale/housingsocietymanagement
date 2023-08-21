@@ -14,6 +14,7 @@ function Home(props) {
       signUp:"",
       }
       var login = window.sessionStorage.getItem("login") == "true";
+      var logid = window.sessionStorage.getItem("logid");
       var fname = window.sessionStorage.getItem("fname");
       var lname = window.sessionStorage.getItem("lname");
 
@@ -43,7 +44,6 @@ function Home(props) {
         xhr.onreadystatechange = function(){
             if (xhr.readyState === 4 && xhr.status === 200){
                 var data = JSON.parse(xhr.responseText) ;
-                debugger;
                 setUser([...data]) ;
             }
         }
@@ -73,8 +73,12 @@ function Home(props) {
     var updateUser = (x) =>{
       console.log(x);
       //<h3><button><Link to="/user/add">Add User </Link></button></h3>
-
-
+    }
+    function display(x){
+      debugger;
+      if(logid==x)
+        return "inline";
+      else return "none";
     }
 
   return (
@@ -94,8 +98,7 @@ function Home(props) {
             <th>Family Member</th>
             <th>mobile no</th>
             <th>Profession</th>
-            <th>Delete</th>
-            <th>Update</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -109,8 +112,7 @@ function Home(props) {
               <td>{u.familymember}</td>
               <td>{u.mobileno}</td>
               <td>{u.profession}</td>
-              <td><button onClick={()=>{deleteUser(u.Id)}} >Delete</button></td>
-              <td><Link to={`/user/update/${u.Id}`}>Update</Link></td>
+              <td><Link style={{display:display(u.Id)}} to={`/user/update/${u.Id}`}>Update</Link></td>
             </tr>
           ))}
         </tbody>

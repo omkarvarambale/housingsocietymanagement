@@ -25,7 +25,7 @@ function UserLogin(props) {
         signUp:"",
     }
     useEffect(()=>{props.setButtonState(temp)
-        debugger;
+        //debugger;
         // if(login)
         // navi("/") ;        
     } , []);
@@ -48,7 +48,7 @@ function UserLogin(props) {
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 var data = JSON.parse(xhr.responseText) ;
-                debugger;
+                //debugger;
                 if(data==null)
                 {
                     window.sessionStorage.setItem("login", false) ;
@@ -60,6 +60,7 @@ function UserLogin(props) {
                     window.sessionStorage.setItem("login", true) ;
                     //debugger;
                     window.sessionStorage.setItem("fname",data.fname);
+                    window.sessionStorage.setItem("logid",data.Id);
                     window.sessionStorage.setItem("lname",data.lname);
                     navi("/") ;
                 } 
