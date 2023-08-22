@@ -4,10 +4,12 @@ import ReactDOM from 'react-dom/client';
 //import Home from './Home';
 import { BrowserRouter } from 'react-router-dom';
 import Lander from './lander';
+import HomePage1 from './Home1';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <BrowserRouter>
-   <Lander />
+   {/* <HomePage1 /> */}
+   <Lander/>
    </BrowserRouter>);

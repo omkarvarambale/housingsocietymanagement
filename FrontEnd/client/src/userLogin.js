@@ -14,6 +14,12 @@ function UserLogin(props) {
     var login = window.sessionStorage.getItem("login") == "true";
     var navi = useNavigate();
 
+    function gotohome(){ navi("/"); }
+    function gotoadv(){ navi("/advertise"); }
+    function gotogal(){ navi("/gallery"); }
+    function gotocont(){ navi("/contactus"); }
+    function gotologin() {navi("/user/login"); }
+
     function goToHomePage() {
         debugger;
         navi("/");
@@ -78,6 +84,21 @@ function UserLogin(props) {
 
     return (
         <div>
+
+            <div className="homepage-container">
+                <header className="header">
+                <nav className="nav-links">
+                    <button onClick={gotohome}>Home</button>
+                    <button onClick={gotoadv}>Advertise</button>
+                    <button onClick={gotogal}>Gallery</button>
+                    <button onClick={gotocont}>Contact Us</button>
+                    <button style={{color:"red"}} onClick={gotologin}>Login</button>
+                </nav>
+                </header>
+            </div>
+
+
+
             <br></br>
             <center>
 

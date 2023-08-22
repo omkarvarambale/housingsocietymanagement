@@ -5,20 +5,15 @@ import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import './App.css';
 import { useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
-//import HomePage from "./homepage.jsx";
-//import Login from "./login.jsx";
-//import SignUp from "./signup.jsx";
-//import FavQT from "./favourite.jsx";
-//import MyQT from "./myquotes.jsx";
-//import Update from "./updateProfile.jsx";
-//import AddQuote from "./addquote.jsx";
 import Home from "./Home.js";
 import AddUser from "./addUser.js";
 import UpdateUser from "./updateUser.js";
 import UserLogin from "./userLogin.js";
 import SignUp from "./signup.js";
-//import updateUser from "../updateUser.js";
-//import UpdateQuote from "./update.jsx";
+import HomePage1 from "./Home1.js";
+import Advertise from "./Advertise.js";
+import Gallery from "./Gallery.js";
+import ContactUs from "./ContactUs.js";
 
 
 
@@ -58,6 +53,10 @@ function Lander() {
         navi("/user/login");
     }
 
+    function logoclicked(){
+        window.location.reload();
+    }
+
 
 
 
@@ -89,13 +88,14 @@ function Lander() {
             </div>
             <div className="col-md-12 Header">
                 <div className="row">
-                    <div className="col-md-4 offset-md-4 TitleDivHeading">
-                        <strong className="Title">Housing Society Management</strong>
+                    <div>
+                        <img src="/photos/logo.jpg" onClick={logoclicked} alt="Logo" className="logo" />
+                        <strong style={{fontSize:"50px"}}>Housing Society Management System</strong>
                     </div>
-                </div>
+                </div>  
 
 
-                <div>
+                {/* <div>
                     {login ? (
                         <div className="btn-group col-md-2 TitleDiv" role="group" style={{ textAlign: "center" }}>
                             <button type="button" className="btn HeaderButton" onClick={goToHomePage}>Home</button>
@@ -107,7 +107,7 @@ function Lander() {
 
                         </div>
                     )}
-                </div>
+                </div> */}
 
 
 
@@ -115,12 +115,15 @@ function Lander() {
 
             </div>
             <Routes>
-                <Route path="/" element={<Home setButtonState={setButtonState}></Home>}></Route>
+                <Route path="/" element={<HomePage1 setButtonState={setButtonState}></HomePage1>}></Route>
                 {/* <Route path="/user/login" element={<Login setButtonState={setButtonState}></Login>}></Route>
                 <Route path="/user/signup" element={<SignUp setButtonState={setButtonState}></SignUp>}></Route>
                 <Route path="/quote/favouritequote" element={<FavQT></FavQT>}></Route>
                 <Route path="/quote/myquote" element={<MyQT></MyQT>}></Route>*/}
                 <Route path="/user/signup" element={<SignUp setButtonState={setButtonState}></SignUp>}></Route>
+                <Route path="/advertise" element={<Advertise></Advertise>}></Route>
+                <Route path="/gallery" element={<Gallery setButtonState={setButtonState}></Gallery>}></Route>
+                <Route path="/contactus" element={<ContactUs setButtonState={setButtonState}></ContactUs>}></Route>
                 <Route path="/user/login" element={<UserLogin setButtonState={setButtonState}></UserLogin>}></Route>
                 <Route path="/user/add" element={<AddUser setButtonState={setButtonState}></AddUser>}></Route>
                 <Route path="/user/update/:userId" element={<UpdateUser></UpdateUser>} ></Route>
@@ -128,7 +131,7 @@ function Lander() {
                 {/* <Route path="/quote/update" element={<UpdateQuote></UpdateQuote>}></Route> */}
 
             </Routes>
-            <div className="Footer">
+            <div className="Footer" style={{height:"300px",color:"blue"}}>
                 <p>This site is created by Omkar Adagale<br /> </p>
             </div>
 
