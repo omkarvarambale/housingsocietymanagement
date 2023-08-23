@@ -9,6 +9,7 @@ const HomePage1 = () => {
     var logid = window.sessionStorage.getItem("logid");
     var fname = window.sessionStorage.getItem("fname");
     var lname = window.sessionStorage.getItem("lname");
+    var isAdmin = window.sessionStorage.getItem("role")==1;
 
     let memcontent;
     let logincontent=<button onClick={gotologin}>Login</button>;

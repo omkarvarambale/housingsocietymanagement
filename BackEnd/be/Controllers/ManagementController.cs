@@ -5,30 +5,33 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace Members.Controllers
 {
+    [EnableCors("*", "*", "*")]
     public class ManagementController : ApiController
     {
-        ProjectEntities1 prjEntities = new ProjectEntities1();
+        ProjectEntities projectEntities = new ProjectEntities();
+
 
         // GET: api/Management
         public IEnumerable<management> Get()
         {
-            return prjEntities.managements.ToList();
+            return projectEntities.managements.ToList();
         }
 
         // GET: api/Management/5
         public management Get(int id)
         {
-            return prjEntities.managements.Find(id);
+            return projectEntities.managements.Find(id);
         }
 
         // POST: api/Management
         public string Post(management m)
         {
-            prjEntities.managements.Add(m);
-            int i = prjEntities.SaveChanges();
+            projectEntities.managements.Add(m);
+            int i = projectEntities.SaveChanges();
             if (i == 1) return "Data Added Successfully.";
             else return "Failed to add data.";
         }
@@ -36,14 +39,14 @@ namespace Members.Controllers
         // PUT: api/Management/5
         public string Put(int id, management m)
         {
-            management dbManagement = prjEntities.managements.Find(id);
+            management dbManagement = projectEntities.managements.Find(id);
             dbManagement.name = m.name;
             dbManagement.img = m.img;
             dbManagement.phoneNo = m.phoneNo;
             dbManagement.email = m.email;
             dbManagement.position = m.position;
 
-            int i = prjEntities.SaveChanges();
+            int i = projectEntities.SaveChanges();
             if (i == 1) return "Data Updated Successfully.";
             else return "Failed to update data.";
         }
@@ -51,8 +54,8 @@ namespace Members.Controllers
         // DELETE: api/Management/5
         public string Delete(int id)
         {
-            prjEntities.managements.Remove(prjEntities.managements.Find(id));
-            int i = prjEntities.SaveChanges();
+            projectEntities.managements.Remove(projectEntities.managements.Find(id));
+            int i = projectEntities.SaveChanges();
             if (i == 1) return "Data Deleted Successfully.";
             else return "Failed to delete data.";
         }

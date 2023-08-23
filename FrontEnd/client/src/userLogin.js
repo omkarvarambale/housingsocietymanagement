@@ -74,10 +74,11 @@ function UserLogin(props) {
                 }
                 else{
                     window.sessionStorage.setItem("login", true) ;
-                    //debugger;
                     window.sessionStorage.setItem("fname",data.fname);
                     window.sessionStorage.setItem("logid",data.Id);
                     window.sessionStorage.setItem("lname",data.lname);
+                    if(data.email=="admin@gmail.com") window.sessionStorage.setItem("role",1);
+                    else window.sessionStorage.setItem("role",2);
                     navi("/") ;
                 } 
                     
@@ -111,28 +112,19 @@ function UserLogin(props) {
 
 
             <br></br>
+
             <center>
-
-                <table>
-                    <tr>
-                        <td>Email :</td>
-                        <td><input name="email" type="text" placeholder="email" value={userData.email} onChange={userDataChange} /></td>
-                        <br></br>
-                    </tr>
-                    <tr>
-                        <td>password :</td>
-                        <td><input name="password" type="text" placeholder="password" value={userData.password} onChange={userDataChange} /></td>
-                        <br></br>
-                    </tr>
-
-                    <tr>
-                        <td style={{ textAlign: "center" }} colSpan={2}>
-                            <button className="btn btn-success" onClick={clicklogin}> LogIn</button>
-                        </td>
-                    </tr>
-                </table>
-                <br></br>
-                <div style={{color:"red"}}>{errorMsg}</div>
+            <div style={{width:"50%"}} class="mb-3">
+                <input name="email" type="text"class="form-control" placeholder="email" value={userData.email} onChange={userDataChange}/>
+            </div>
+            <div style={{width:"50%"}} class="mb-3">
+                <input name="password" type="password" class="form-control" placeholder="password" value={userData.password} onChange={userDataChange}/>
+            </div>
+            <div style={{width:"50%"}} class="d-grid gap-2">
+                <button class="btn btn-success" onClick={clicklogin}>Log In</button>
+            </div>
+            <br></br>
+            <div style={{color:"red"}}>{errorMsg}</div>    
             </center>
 
         </div>

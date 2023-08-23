@@ -5,12 +5,15 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace WebApplication1.Controllers
 {
+    [EnableCors("*", "*", "*")]
     public class EventController : ApiController
     {
-        ProjectEntities1 projectEntities = new ProjectEntities1();
+        ProjectEntities projectEntities = new ProjectEntities();
+
 
         // GET: api/Event
         public IEnumerable<@event> Get()

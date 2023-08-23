@@ -48,15 +48,11 @@ return (
         <button style={{color:"red"}} onClick={gotologout}>Logout</button>
       </nav>
     </header>
-    
+    <center>
     <div className="society-info">
-      Inside Logout
-      <br/><button className='btn btn-danger' onClick={logout}>Logout</button>
+      <button className='btn btn-danger' onClick={logout}>Logout</button>
     </div>
-    
-    <footer className="footer">
-      {/* Footer content goes here */}
-    </footer>
+    </center>
   </div>
 );
   }

@@ -50,7 +50,7 @@ function Home() {
       "fname": "", "lname": "", "email": "", "password": "",
       "flatno": "", "familymember": "", "mobileno": "",
       "profession": "", "image": ""
-  });
+    });
     
     useEffect(()=>{
 
@@ -115,11 +115,11 @@ function Home() {
           {logoutcontent}
         </nav>
       </header>
-
+    <center>
     <div>
-      <h3>User List</h3>
-      <h4>{fname} {lname}</h4>
-      <table className="table table-striped">
+      <br/>
+      <h3>Member List</h3><br/>
+      <table style={{width:"75%"}} className="table table-striped">
         <thead>
           <tr>
             <th>Image</th>
@@ -130,7 +130,6 @@ function Home() {
             <th>Family Member</th>
             <th>mobile no</th>
             <th>Profession</th>
-            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -144,18 +143,20 @@ function Home() {
               <td>{u.familymember}</td>
               <td>{u.mobileno}</td>
               <td>{u.profession}</td>
-              <td><Link style={{display:display(u.Id)}} to={`/user/update/${u.Id}`}>Update</Link></td>
             </tr>
           ))}
         </tbody>
       </table>
     </div>
+    </center>
     </div>
   );
 }
 
 export default Home;
 
+
+{/* <td><Link style={{display:display(u.Id)}} to={`/user/update/${u.Id}`}>Update</Link></td> */}
 
 
 // import 'bootstrap/dist/css/bootstrap.min.css';
