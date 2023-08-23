@@ -5,18 +5,39 @@ import { useEffect, useState } from "react";
 import { Link, Route, Routes, useNavigate } from "react-router-dom";
 
 
-function Home(props) {
+function Home() {
 
     var navi = useNavigate();
-    var temp = {
-      home:"disabled", 
-      logIn:"",
-      signUp:"",
-      }
-      var login = window.sessionStorage.getItem("login") == "true";
-      var logid = window.sessionStorage.getItem("logid");
-      var fname = window.sessionStorage.getItem("fname");
-      var lname = window.sessionStorage.getItem("lname");
+   
+    var login = window.sessionStorage.getItem("login") == "true";
+    var logid = window.sessionStorage.getItem("logid");
+    var fname = window.sessionStorage.getItem("fname");
+    var lname = window.sessionStorage.getItem("lname");
+
+    function gotohome(){ navi("/"); }
+    function gotoadv(){ debugger; navi("/advertise"); }
+    function gotogal(){ navi("/gallery"); }
+    function gotomang(){ navi("/management"); }
+    function gotocont(){ navi("/contactus"); }
+    function gotologin() {navi("/user/login"); }
+    function gotomem(){ navi("/user/members") }
+    function gotologout(){ navi("/user/logout"); }
+
+
+    let memcontent;
+    let logincontent=<button onClick={gotologin}>Login</button>;
+    let logoutcontent;
+    if (login) {
+      memcontent =<button onClick={gotomem}>All Member</button>;
+      logincontent="";
+      logoutcontent=<button onClick={gotologout}>Logout</button>;
+    }
+
+
+
+
+
+
 
     function goToLogin() {
         navi("/user/login");
@@ -33,7 +54,6 @@ function Home(props) {
     
     useEffect(()=>{
 
-      props.setButtonState(temp)
         if(!login){
             navi("/user/login");
         }
@@ -82,11 +102,23 @@ function Home(props) {
     }
 
   return (
-    <div className="col-md-8 offset-md-2" style={{textAlign:"justify" , marginTop : 5+"px"}}>
+    <div className="homepage-container">
+      <header className="header">
+        <nav className="nav-links">
+          <button onClick={gotohome}>Home</button>
+          <button onClick={gotoadv}>Advertise</button>
+          <button style={{color:"red"}} onClick={gotomem}>All Member</button>
+          <button onClick={gotogal}>Gallery</button>
+          <button onClick={gotomang}>Management People</button>
+          <button onClick={gotocont}>Contact Us</button>
+          {logincontent}
+          {logoutcontent}
+        </nav>
+      </header>
 
     <div>
-      <h2>User List</h2>
-      <h3>{fname}{lname}</h3>
+      <h3>User List</h3>
+      <h4>{fname} {lname}</h4>
       <table className="table table-striped">
         <thead>
           <tr>

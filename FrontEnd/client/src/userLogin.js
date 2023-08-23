@@ -19,22 +19,28 @@ function UserLogin(props) {
     function gotogal(){ navi("/gallery"); }
     function gotocont(){ navi("/contactus"); }
     function gotologin() {navi("/user/login"); }
+    function gotomang(){ navi("/management"); }
 
     function goToHomePage() {
         debugger;
         navi("/");
     }
 
+    var [errorMsg, setUsermsg] = useState("");
+    const showMessageWithDelay = () => {
+        // Using setTimeout to update the message after 2000 milliseconds (2 seconds)
+        setTimeout(() => {
+          setUsermsg("");
+        }, 2000);
+      };
+
+
     var temp = {
         home:"", 
         logIn:"red",
         signUp:"",
     }
-    useEffect(()=>{props.setButtonState(temp)
-        //debugger;
-        // if(login)
-        // navi("/") ;        
-    } , []);
+    
 
 
     // var [userData, setUserData] = useState({
@@ -47,7 +53,8 @@ function UserLogin(props) {
     }
 
 
-    var login = () => {
+    var clicklogin = () => {
+        //debugger;
 
         var xhr = new XMLHttpRequest();
         xhr.open("POST", "http://localhost:50052/api/Login");
@@ -57,7 +64,10 @@ function UserLogin(props) {
                 //debugger;
                 if(data==null)
                 {
+                    console.log("inside login");
                     window.sessionStorage.setItem("login", false) ;
+                    setUsermsg("Log in failed");
+                    showMessageWithDelay();
                     //handleUpdate();
                     //Reload();
                     //window.location.reload() ;
@@ -91,6 +101,7 @@ function UserLogin(props) {
                     <button onClick={gotohome}>Home</button>
                     <button onClick={gotoadv}>Advertise</button>
                     <button onClick={gotogal}>Gallery</button>
+                    <button onClick={gotomang}>Management People</button>
                     <button onClick={gotocont}>Contact Us</button>
                     <button style={{color:"red"}} onClick={gotologin}>Login</button>
                 </nav>
@@ -116,10 +127,12 @@ function UserLogin(props) {
 
                     <tr>
                         <td style={{ textAlign: "center" }} colSpan={2}>
-                            <button className="btn btn-success" onClick={login}> LogIn</button>
+                            <button className="btn btn-success" onClick={clicklogin}> LogIn</button>
                         </td>
                     </tr>
                 </table>
+                <br></br>
+                <div style={{color:"red"}}>{errorMsg}</div>
             </center>
 
         </div>

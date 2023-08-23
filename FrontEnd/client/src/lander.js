@@ -14,6 +14,8 @@ import HomePage1 from "./Home1.js";
 import Advertise from "./Advertise.js";
 import Gallery from "./Gallery.js";
 import ContactUs from "./ContactUs.js";
+import MangPeop from "./managementpeople.js";
+import UserLogout from "./userLogout.js";
 
 
 
@@ -89,7 +91,7 @@ function Lander() {
             <div className="col-md-12 Header">
                 <div className="row">
                     <div>
-                        <img src="/photos/logo.jpg" onClick={logoclicked} alt="Logo" className="logo" />
+                        <img src="/photos/logo.jpg" onClick={goToHomePage} alt="Logo" className="logo" />
                         <strong style={{fontSize:"50px"}}>Housing Society Management System</strong>
                     </div>
                 </div>  
@@ -120,12 +122,15 @@ function Lander() {
                 <Route path="/user/signup" element={<SignUp setButtonState={setButtonState}></SignUp>}></Route>
                 <Route path="/quote/favouritequote" element={<FavQT></FavQT>}></Route>
                 <Route path="/quote/myquote" element={<MyQT></MyQT>}></Route>*/}
-                <Route path="/user/signup" element={<SignUp setButtonState={setButtonState}></SignUp>}></Route>
+                <Route path="/user/members" element={<Home></Home>}></Route>
+                <Route path="/management" element={<MangPeop></MangPeop>}></Route>
+                <Route path="/user/signup" element={<SignUp></SignUp>}></Route>
                 <Route path="/advertise" element={<Advertise></Advertise>}></Route>
-                <Route path="/gallery" element={<Gallery setButtonState={setButtonState}></Gallery>}></Route>
-                <Route path="/contactus" element={<ContactUs setButtonState={setButtonState}></ContactUs>}></Route>
-                <Route path="/user/login" element={<UserLogin setButtonState={setButtonState}></UserLogin>}></Route>
-                <Route path="/user/add" element={<AddUser setButtonState={setButtonState}></AddUser>}></Route>
+                <Route path="/gallery" element={<Gallery></Gallery>}></Route>
+                <Route path="/contactus" element={<ContactUs></ContactUs>}></Route>
+                <Route path="/user/login" element={<UserLogin></UserLogin>}></Route>
+                <Route path="/user/logout" element={<UserLogout></UserLogout>}></Route>
+                <Route path="/user/add" element={<AddUser></AddUser>}></Route>
                 <Route path="/user/update/:userId" element={<UpdateUser></UpdateUser>} ></Route>
                 {/* <Route path="/bg" element={} ></Route> */}
                 {/* <Route path="/quote/update" element={<UpdateQuote></UpdateQuote>}></Route> */}

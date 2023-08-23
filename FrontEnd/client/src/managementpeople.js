@@ -2,14 +2,14 @@ import React from 'react';
 import './Homepage.css'; // You can create a separate CSS file for styling
 import { Link, Route, Routes, useNavigate } from "react-router-dom";
 
-const HomePage1 = () => {
+function MangPeop() {
     var navi = useNavigate();
 
     var login = window.sessionStorage.getItem("login") == "true";
     var logid = window.sessionStorage.getItem("logid");
     var fname = window.sessionStorage.getItem("fname");
     var lname = window.sessionStorage.getItem("lname");
-
+    
     let memcontent;
     let logincontent=<button onClick={gotologin}>Login</button>;
     let logoutcontent;
@@ -18,29 +18,28 @@ const HomePage1 = () => {
       logincontent="";
       logoutcontent=<button onClick={gotologout}>Logout</button>;
     }
+    
 
 
-    function logoclicked(){
-        window.location.reload();
-    }
     function gotohome(){ navi("/"); }
-    function gotoadv(){ navi("/advertise"); }
+    function gotoadv(){ debugger; navi("/advertise"); }
     function gotogal(){ navi("/gallery"); }
-    function gotomang(){ navi("/management"); }
     function gotocont(){ navi("/contactus"); }
     function gotologin() {navi("/user/login"); }
     function gotomem(){ navi("/user/members") }
+    function gotomang(){ navi("/management"); }
     function gotologout(){ navi("/user/logout"); }
+
 
   return (
     <div className="homepage-container">
       <header className="header">
         <nav className="nav-links">
-          <button style={{color:"red"}} onClick={gotohome}>Home</button>
+          <button onClick={gotohome}>Home</button>
           <button onClick={gotoadv}>Advertise</button>
           {memcontent}
           <button onClick={gotogal}>Gallery</button>
-          <button onClick={gotomang}>Management People</button>
+          <button style={{color:"red"}} onClick={gotomang}>Management People</button>
           <button onClick={gotocont}>Contact Us</button>
           {logincontent}
           {logoutcontent}
@@ -48,7 +47,7 @@ const HomePage1 = () => {
       </header>
       
       <div className="society-info">
-        Inside Home
+        Inside Management People
       </div>
       
       <footer className="footer">
@@ -58,4 +57,4 @@ const HomePage1 = () => {
   );
 };
 
-export default HomePage1;
+export default MangPeop;
