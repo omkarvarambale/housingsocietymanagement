@@ -1,5 +1,5 @@
 import React from 'react';
-import './Homepage.css'; // You can create a separate CSS file for styling
+import '../Homepage.css'; // You can create a separate CSS file for styling
 import { Link, Route, Routes, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Axios from "axios";

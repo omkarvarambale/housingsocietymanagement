@@ -1,8 +1,8 @@
 import React from 'react';
-import './Homepage.css'; // You can create a separate CSS file for styling
+import '../Homepage.css'; // You can create a separate CSS file for styling
 import { Link, Route, Routes, useNavigate } from "react-router-dom";
 
-function Gallery() {
+function UserLogout() {
   var navi = useNavigate();
   function logoclicked(){
       window.location.reload();
@@ -24,12 +24,14 @@ function Gallery() {
 
 
   let memcontent;
-  let logincontent=<button onClick={gotologin}>Login</button>;
-  let logoutcontent;
   if (login) {
     memcontent =<button onClick={gotomem}>All Member</button>;
-    logincontent="";
-    logoutcontent=<button onClick={gotologout}>Logout</button>;
+  }
+
+  function logout(){
+    window.sessionStorage.clear();
+    window.sessionStorage.setItem("login", false);
+    gotohome();
   }
 
 
@@ -40,23 +42,19 @@ return (
         <button onClick={gotohome}>Home</button>
         <button onClick={gotoadv}>Advertise</button>
         {memcontent}
-        <button style={{color:"red"}} onClick={gotogal}>Gallery</button>
+        <button onClick={gotogal}>Gallery</button>
         <button onClick={gotomang}>Management People</button>
         <button onClick={gotocont}>Contact Us</button>
-        {logincontent}
-        {logoutcontent}
+        <button style={{color:"red"}} onClick={gotologout}>Logout</button>
       </nav>
     </header>
-    
+    <center>
     <div className="society-info">
-      Inside Gallery
+      <button className='btn btn-danger' onClick={logout}>Logout</button>
     </div>
-    
-    <footer className="footer">
-      {/* Footer content goes here */}
-    </footer>
+    </center>
   </div>
 );
   }
   
-  export default Gallery;
+  export default UserLogout;

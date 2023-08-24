@@ -5,19 +5,19 @@ import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import './App.css';
 import { useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
-import Home from "./Home.js";
-import AddUser from "./addUser.js";
-import UpdateUser from "./updateUser.js";
-import UserLogin from "./userLogin.js";
+import AddUser from "./user/addUser.js";
+import UpdateUser from "./user/updateUser.js";
+import UserLogin from "./user/userLogin.js";
 import SignUp from "./signup.js";
 import HomePage1 from "./Home1.js";
-import Advertise from "./Advertise.js";
-import Gallery from "./Gallery.js";
-import ContactUs from "./ContactUs.js";
-import MangPeop from "./managementpeople.js";
-import UserLogout from "./userLogout.js";
-import AddManagement from "./addManagement.js";
-import UpdateManagment from "./updateManagement.js";
+import Advertise from "./advertise/Advertise.js";
+import Gallery from "./home/Gallery.js";
+import ContactUs from "./home/ContactUs.js";
+import MangPeop from "./managementpeop/managementpeople.js";
+import UserLogout from "./user/userLogout.js";
+import AddManagement from "./managementpeop/addManagement.js";
+import UpdateManagment from "./managementpeop/updateManagement.js";
+import Home from "./home/Home.js"
 
 
 
