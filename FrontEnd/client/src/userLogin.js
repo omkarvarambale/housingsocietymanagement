@@ -21,41 +21,20 @@ function UserLogin(props) {
     function gotologin() {navi("/user/login"); }
     function gotomang(){ navi("/management"); }
 
-    function goToHomePage() {
-        debugger;
-        navi("/");
-    }
-
     var [errorMsg, setUsermsg] = useState("");
     const showMessageWithDelay = () => {
         // Using setTimeout to update the message after 2000 milliseconds (2 seconds)
         setTimeout(() => {
           setUsermsg("");
         }, 2000);
-      };
-
-
-    var temp = {
-        home:"", 
-        logIn:"red",
-        signUp:"",
-    }
+    };
     
-
-
-    // var [userData, setUserData] = useState({
-    //     "email": "", "password": ""
-    // });
-
     var userDataChange = (x) => {
         userData[x.target.name] = x.target.value;
         setUserData({ ...userData });
     }
 
-
     var clicklogin = () => {
-        //debugger;
-
         var xhr = new XMLHttpRequest();
         xhr.open("POST", "http://localhost:50052/api/Login");
         xhr.onreadystatechange = function () {
@@ -68,9 +47,6 @@ function UserLogin(props) {
                     window.sessionStorage.setItem("login", false) ;
                     setUsermsg("Log in failed");
                     showMessageWithDelay();
-                    //handleUpdate();
-                    //Reload();
-                    //window.location.reload() ;
                 }
                 else{
                     window.sessionStorage.setItem("login", true) ;
@@ -81,16 +57,10 @@ function UserLogin(props) {
                     else window.sessionStorage.setItem("role",2);
                     navi("/") ;
                 } 
-                    
-                //const dataJSON = JSON.stringify(userData);
-                
-                
             }
         }
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.send(JSON.stringify(userData));
-        
-
     }//end of add
 
     return (
@@ -129,7 +99,6 @@ function UserLogin(props) {
 
         </div>
     )
-
 }
 
 export default UserLogin;

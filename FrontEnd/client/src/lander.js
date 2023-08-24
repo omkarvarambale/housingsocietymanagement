@@ -16,6 +16,8 @@ import Gallery from "./Gallery.js";
 import ContactUs from "./ContactUs.js";
 import MangPeop from "./managementpeople.js";
 import UserLogout from "./userLogout.js";
+import AddManagement from "./addManagement.js";
+import UpdateManagment from "./updateManagement.js";
 
 
 
@@ -33,11 +35,6 @@ import UserLogout from "./userLogout.js";
 
 
 function Lander() {
-
-
-
-
-
 
     var [buttonState, setButtonState] = useState({ home: "", logIn: "", SignUp: "" });
     var navi = useNavigate();
@@ -117,13 +114,15 @@ function Lander() {
 
             </div>
             <Routes>
-                <Route path="/" element={<HomePage1 setButtonState={setButtonState}></HomePage1>}></Route>
+                <Route path="/" element={<HomePage1></HomePage1>}></Route>
                 {/* <Route path="/user/login" element={<Login setButtonState={setButtonState}></Login>}></Route>
                 <Route path="/user/signup" element={<SignUp setButtonState={setButtonState}></SignUp>}></Route>
                 <Route path="/quote/favouritequote" element={<FavQT></FavQT>}></Route>
                 <Route path="/quote/myquote" element={<MyQT></MyQT>}></Route>*/}
                 <Route path="/user/members" element={<Home></Home>}></Route>
                 <Route path="/management" element={<MangPeop></MangPeop>}></Route>
+                <Route path="/management/add" element={<AddManagement></AddManagement>}></Route>
+                <Route path="/managment/updateManagment/:managementId" element={<UpdateManagment></UpdateManagment>}></Route>
                 <Route path="/user/signup" element={<SignUp></SignUp>}></Route>
                 <Route path="/advertise" element={<Advertise></Advertise>}></Route>
                 <Route path="/gallery" element={<Gallery></Gallery>}></Route>
@@ -132,8 +131,6 @@ function Lander() {
                 <Route path="/user/logout" element={<UserLogout></UserLogout>}></Route>
                 <Route path="/user/add" element={<AddUser></AddUser>}></Route>
                 <Route path="/user/update/:userId" element={<UpdateUser></UpdateUser>} ></Route>
-                {/* <Route path="/bg" element={} ></Route> */}
-                {/* <Route path="/quote/update" element={<UpdateQuote></UpdateQuote>}></Route> */}
 
             </Routes>
             <div className="Footer" style={{height:"300px",color:"blue"}}>

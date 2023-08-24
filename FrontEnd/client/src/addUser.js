@@ -1,15 +1,38 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Route, Routes, useNavigate } from "react-router-dom";
+import Axios from "axios";
+
 
 
 function AddUser() {
 
+    const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+
+    var login = window.sessionStorage.getItem("login") == "true";
+    var logid = window.sessionStorage.getItem("logid");
+    var fname = window.sessionStorage.getItem("fname");
+    var lname = window.sessionStorage.getItem("lname");
+    var admin = window.sessionStorage.getItem("role") == 1;
+
+    useEffect(()=>{
+        if(!login || !admin){
+            navi("/");
+        }
+    } , []);
+
+    const handleButtonClick = () => {
+        // Disable the button immediately
+        // Enable the button after 5 seconds
+        setTimeout(() => {
+          setIsButtonDisabled(false);
+        }, 5000);
+      };
 
     var navi = useNavigate();
 
-    function goToHomePage() {
-        navi("/");
+    function goToUserMember() {
+        navi("/user/members");
     }
 
     var [userData, setUserData] = useState({
@@ -23,12 +46,10 @@ function AddUser() {
         setUserData({ ...userData });
     }
 
-    const handleFileChange = (event) => {
-       // debugger;
-        userData[event.target.name] = event.target.files[0].name;
-        setUserData({ ...userData }); 
-      };
-
+    const updateImage = (newImagePath) => {
+        const updatedUserData = { ...userData, image: newImagePath };
+        setUserData(updatedUserData);
+    };
 
     var add = () => {
 
@@ -36,14 +57,32 @@ function AddUser() {
         xhr.open("POST", "http://localhost:50052/api/Home");
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4 && xhr.status === 200) {
-                //var data = JSON.parse(xhr.responseText) ;
-                goToHomePage();
+                goToUserMember();
             }
         }
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.send(JSON.stringify(userData));
-
     }//end of add
+
+    var [uploadFile, setUploadFile] = useState("");
+    const handleUpload = (e) => {
+        setTimeout(() => {setIsButtonDisabled(false);}, 5000);
+        e.preventDefault();
+        const formData = new FormData ();
+        formData.append("file", uploadFile);
+        formData.append("upload_preset", "HousingSocietyManagement");
+
+        Axios.post("https://api.cloudinary.com/v1_1/dvsmrv64h/image/upload",formData
+        )
+        .then((response) => {
+        console.log(response);
+        console.log(response.data.secure_url);
+        updateImage(response.data.secure_url);
+        })
+        .catch((error) => {
+        console.log(error);
+        });
+    };
 
     return (
         <div>
@@ -51,62 +90,61 @@ function AddUser() {
             <center>
 
                 <table>
+                    <tbody>
                     <tr>
                         <td>First Name :</td>
                         <td><input name="fname" type="text" placeholder="First Name" value={userData.fname} onChange={userDataChange} /></td>
-                        <br></br>
+                       
                     </tr>
                     <tr>
                         <td>Last Name :</td>
                         <td><input name="lname" type="text" placeholder="Last Name" value={userData.lname} onChange={userDataChange} /></td>
-                        <br></br>
+                        
                     </tr>
                     <tr>
                         <td>Email :</td>
                         <td><input name="email" type="text" placeholder="email" value={userData.email} onChange={userDataChange} /></td>
-                        <br></br>
+                        
                     </tr>
                     <tr>
                         <td>password :</td>
                         <td><input name="password" type="text" placeholder="password" value={userData.password} onChange={userDataChange} /></td>
-                        <br></br>
+                      
                     </tr>
                     <tr>
                         <td>Flat No :</td>
                         <td><input name="flatno" type="text" placeholder="Flat no" value={userData.flatno} onChange={userDataChange} /></td>
-                        <br></br>
+                        
                     </tr>
                     <tr>
                         <td>Member :</td>
                         <td><input name="familymember" type="number" placeholder="Member" value={userData.familymember} onChange={userDataChange} /></td>
-                        <br></br>
+                        
                     </tr>
                     <tr>
                         <td>Mobile No :</td>
                         <td><input name="mobileno" type="text" placeholder="Mobile no" value={userData.mobileno} onChange={userDataChange} /></td>
-                        <br></br>
                     </tr>
                     <tr>
                         <td>Profession :</td>
                         <td><input name="profession" type="text" placeholder="profession" value={userData.profession} onChange={userDataChange} /></td>
-                        <br></br>
                     </tr>
                     <tr>
                         <td>Image :</td>
-                        <td><input name="image" type="file" placeholder="image path" value={userData.image} onChange={userDataChange} /></td>
-                        <br></br>
+                        <td><input name="image" type="file" placeholder="image path" onChange={(e)=>setUploadFile(e.target.files[0])} />
+                        <button className="btn btn-primary" onClick={handleUpload}>save img</button>
+                        </td>
                     </tr>
-
 
                     <tr>
                         <td style={{ textAlign: "center" }} colSpan={2}>
-                            <button className="btn btn-success" onClick={add}> Add User</button>
+                            <button className="btn btn-success" disabled={isButtonDisabled} onClick={add}> Add User</button>
 
                         </td>
                     </tr>
+                </tbody>
                 </table>
             </center>
-
         </div>
     )
 

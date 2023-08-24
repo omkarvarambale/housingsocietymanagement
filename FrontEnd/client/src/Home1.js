@@ -49,6 +49,7 @@ const HomePage1 = () => {
       </header>
       
       <div className="society-info">
+        <h3>{fname} {lname}</h3>
         Inside Home
       </div>
       

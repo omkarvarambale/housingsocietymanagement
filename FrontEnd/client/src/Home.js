@@ -13,6 +13,7 @@ function Home() {
     var logid = window.sessionStorage.getItem("logid");
     var fname = window.sessionStorage.getItem("fname");
     var lname = window.sessionStorage.getItem("lname");
+    var admin = window.sessionStorage.getItem("role") == 1;
 
     function gotohome(){ navi("/"); }
     function gotoadv(){ debugger; navi("/advertise"); }
@@ -26,17 +27,18 @@ function Home() {
 
     let memcontent;
     let logincontent=<button onClick={gotologin}>Login</button>;
+    let admincontent1;
+    let admincontent2;
     let logoutcontent;
     if (login) {
       memcontent =<button onClick={gotomem}>All Member</button>;
       logincontent="";
       logoutcontent=<button onClick={gotologout}>Logout</button>;
+      if(admin){
+        admincontent1=<><th>Delete</th><th>Update</th></>;
+        admincontent2=<button><Link to="/user/add">Add User </Link></button>
+      }
     }
-
-
-
-
-
 
 
     function goToLogin() {
@@ -101,6 +103,11 @@ function Home() {
       else return "none";
     }
 
+
+
+
+    
+
   return (
     <div className="homepage-container">
       <header className="header">
@@ -119,6 +126,7 @@ function Home() {
     <div>
       <br/>
       <h3>Member List</h3><br/>
+      <h3></h3>
       <table style={{width:"75%"}} className="table table-striped">
         <thead>
           <tr>
@@ -130,12 +138,13 @@ function Home() {
             <th>Family Member</th>
             <th>mobile no</th>
             <th>Profession</th>
+            {admincontent1}
           </tr>
         </thead>
         <tbody>
           {user.map(u => (
             <tr key={u.Id}>
-              <td><div><img style={{width:30+"px"}} src={hardcodedPath+u.image.split("\\")[2]} alt="no Image" /></div></td>
+              <td><div><img style={{width:30+"px"}} src={u.image} alt="no Image" /></div></td>
               <td>{u.fname}</td>
               <td>{u.lname}</td>
               <td>{u.email}</td>
@@ -143,6 +152,10 @@ function Home() {
               <td>{u.familymember}</td>
               <td>{u.mobileno}</td>
               <td>{u.profession}</td>
+              {admin ? (<>
+                        <td><button onClick={()=>{deleteUser(u.Id)}} >Delete</button></td>
+                        <td><Link to={`/user/update/${u.Id}`}>Update</Link></td></>
+                    ) : (<></>)}
             </tr>
           ))}
         </tbody>
@@ -157,6 +170,7 @@ export default Home;
 
 
 {/* <td><Link style={{display:display(u.Id)}} to={`/user/update/${u.Id}`}>Update</Link></td> */}
+{/* <td><div><img style={{width:30+"px"}} src={hardcodedPath+u.image.split("\\")[2]} alt="no Image" /></div></td> */}
 
 
 // import 'bootstrap/dist/css/bootstrap.min.css';
