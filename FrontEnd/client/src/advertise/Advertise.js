@@ -17,15 +17,18 @@ function HomePage1() {
 
   let memcontent;
   let logincontent = <button onClick={gotologin}>Login</button>;
+  let logincontent2;
   let logoutcontent;
   if (login) {
     memcontent = <button onClick={gotomem}>All Member</button>;
     logincontent = "";
     logoutcontent = <button onClick={gotologout}>Logout</button>;
+    logincontent2 = <button style={{margin:"10px"}} className='btn btn-info' onClick={gotoaddadv}>Add Advertise</button>;
   }
 
   function gotohome() { navi("/"); }
-  function gotoadv() { debugger; navi("/advertise"); }
+  function gotoadv() { navi("/advertise"); }
+  function gotoaddadv() { navi("/advertise/add"); }
   function gotogal() { navi("/gallery"); }
   function gotocont() { navi("/contactus"); }
   function gotologin() { navi("/user/login"); }
@@ -77,10 +80,12 @@ function HomePage1() {
         </nav>
       </header>
 
+      {logincontent2}
+
       <div className="society-info">
         {adv.map(u => (
               <div key={u.Id} style={{width:"340px", border:"2px solid black",padding:"10px",margin:"10px" ,overflow:"auto", display:"inline-block"}}>
-              <img style={{width:"320px"}} src='/photos/adv2.jpg' alt={u.image}></img>
+              <img style={{width:"320px"}} src={u.image} alt="img"></img>
               <br/>
               <p style={{textAlign:"justify"}}>{u.description}</p>
               <p>Date:{convertDateFormat(u.date)}</p>

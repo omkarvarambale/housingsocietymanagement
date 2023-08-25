@@ -18,6 +18,7 @@ import UserLogout from "./user/userLogout.js";
 import AddManagement from "./managementpeop/addManagement.js";
 import UpdateManagment from "./managementpeop/updateManagement.js";
 import Home from "./home/Home.js"
+import AddAdvertise from "./advertise/addAdvertise.js";
 
 
 
@@ -125,6 +126,7 @@ function Lander() {
                 <Route path="/managment/updateManagment/:managementId" element={<UpdateManagment></UpdateManagment>}></Route>
                 <Route path="/user/signup" element={<SignUp></SignUp>}></Route>
                 <Route path="/advertise" element={<Advertise></Advertise>}></Route>
+                <Route path="//advertise/add" element={<AddAdvertise></AddAdvertise>}></Route>
                 <Route path="/gallery" element={<Gallery></Gallery>}></Route>
                 <Route path="/contactus" element={<ContactUs></ContactUs>}></Route>
                 <Route path="/user/login" element={<UserLogin></UserLogin>}></Route>

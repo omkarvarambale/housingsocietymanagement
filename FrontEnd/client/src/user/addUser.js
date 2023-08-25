@@ -52,7 +52,6 @@ function AddUser() {
     };
 
     var add = () => {
-
         var xhr = new XMLHttpRequest();
         xhr.open("POST", "http://localhost:50052/api/Home");
         xhr.onreadystatechange = function () {
@@ -65,6 +64,7 @@ function AddUser() {
     }//end of add
 
     var [uploadFile, setUploadFile] = useState("");
+    debugger;
     const handleUpload = (e) => {
         setTimeout(() => {setIsButtonDisabled(false);}, 5000);
         e.preventDefault();
