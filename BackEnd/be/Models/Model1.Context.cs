@@ -13,10 +13,10 @@ namespace be.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ProjectEntities1 : DbContext
+    public partial class ProjectEntities : DbContext
     {
-        public ProjectEntities1()
-            : base("name=ProjectEntities1")
+        public ProjectEntities()
+            : base("name=ProjectEntities")
         {
             this.Configuration.ProxyCreationEnabled = false;
         }
@@ -32,5 +32,6 @@ namespace be.Models
         public virtual DbSet<management> managements { get; set; }
         public virtual DbSet<member> members { get; set; }
         public virtual DbSet<user> users { get; set; }
+        public virtual DbSet<gallery> galleries { get; set; }
     }
 }

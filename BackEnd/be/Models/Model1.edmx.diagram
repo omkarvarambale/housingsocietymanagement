@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="b471ad050c6d4cd6b0ad3bfa1ee38bfe" Name="Diagram1">
+      <Diagram DiagramId="540b3329a9da41a6b217a5c52f03258f" Name="Diagram1">
         <EntityTypeShape EntityType="ProjectModel.advertise" Width="1.5" PointX="3" PointY="1.625" IsExpanded="true" />
         <EntityTypeShape EntityType="ProjectModel.complain" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
         <EntityTypeShape EntityType="ProjectModel.event" Width="1.5" PointX="3" PointY="7.25" IsExpanded="true" />
@@ -16,6 +16,8 @@
         <AssociationConnector Association="ProjectModel.FK_event_ToTable" ManuallyRouted="false" />
         <AssociationConnector Association="ProjectModel.FK_management_ToTable" ManuallyRouted="false" />
         <AssociationConnector Association="ProjectModel.FK_members_ToTable" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ProjectModel.gallery" Width="1.5" PointX="3" PointY="18.375" />
+        <AssociationConnector Association="ProjectModel.FK_gallery_ToTable" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

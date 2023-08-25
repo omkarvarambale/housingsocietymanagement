@@ -13,8 +13,8 @@ namespace be
 
             // Web API routes
             config.MapHttpAttributeRoutes();
-
-            //config.Formatters.Remove(config.Formatters.XmlFormatter);
+            config.EnableCors();
+            config.Formatters.Remove(config.Formatters.XmlFormatter);
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",

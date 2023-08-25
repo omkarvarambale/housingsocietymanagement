@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ProjectModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ProjectModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="advertise">
           <Key>
             <PropertyRef Name="Id" />
@@ -35,6 +35,14 @@
           <Property Name="eventdate" Type="date" />
           <Property Name="eventtime" Type="time" Precision="0" />
           <Property Name="eventimage" Type="varchar" MaxLength="500" />
+          <Property Name="userId" Type="int" />
+        </EntityType>
+        <EntityType Name="gallery">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="image" Type="varchar" MaxLength="200" />
           <Property Name="userId" Type="int" />
         </EntityType>
         <EntityType Name="management">
@@ -119,6 +127,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_gallery_ToTable">
+          <End Role="user" Type="Self.user" Multiplicity="0..1" />
+          <End Role="gallery" Type="Self.gallery" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="gallery">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_management_ToTable">
           <End Role="user" Type="Self.user" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -151,6 +171,7 @@
           <EntitySet Name="advertise" EntityType="Self.advertise" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="complain" EntityType="Self.complain" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="event" EntityType="Self.event" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="gallery" EntityType="Self.gallery" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="management" EntityType="Self.management" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="members" EntityType="Self.members" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="user" EntityType="Self.user" Schema="dbo" store:Type="Tables" />
@@ -166,6 +187,10 @@
             <End Role="user" EntitySet="user" />
             <End Role="event" EntitySet="event" />
           </AssociationSet>
+          <AssociationSet Name="FK_gallery_ToTable" Association="Self.FK_gallery_ToTable">
+            <End Role="user" EntitySet="user" />
+            <End Role="gallery" EntitySet="gallery" />
+          </AssociationSet>
           <AssociationSet Name="FK_management_ToTable" Association="Self.FK_management_ToTable">
             <End Role="user" EntitySet="user" />
             <End Role="management" EntitySet="management" />
@@ -175,8 +200,7 @@
             <End Role="members" EntitySet="members" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ProjectModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -261,6 +285,7 @@
           <NavigationProperty Name="events" Relationship="Self.FK_event_ToTable" FromRole="user" ToRole="event" />
           <NavigationProperty Name="managements" Relationship="Self.FK_management_ToTable" FromRole="user" ToRole="management" />
           <NavigationProperty Name="members" Relationship="Self.FK_members_ToTable" FromRole="user" ToRole="members" />
+          <NavigationProperty Name="galleries" Relationship="ProjectModel.FK_gallery_ToTable" FromRole="user" ToRole="gallery" />
         </EntityType>
         <Association Name="FK_advertise_ToTable">
           <End Role="user" Type="Self.user" Multiplicity="0..1">
@@ -332,7 +357,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="ProjectEntities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="ProjectEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="advertises" EntityType="Self.advertise" />
           <EntitySet Name="complains" EntityType="Self.complain" />
           <EntitySet Name="events" EntityType="Self.event" />
@@ -359,13 +384,39 @@
             <End Role="user" EntitySet="users" />
             <End Role="members" EntitySet="members" />
           </AssociationSet>
+          <EntitySet Name="galleries" EntityType="ProjectModel.gallery" />
+          <AssociationSet Name="FK_gallery_ToTable" Association="ProjectModel.FK_gallery_ToTable">
+            <End Role="user" EntitySet="users" />
+            <End Role="gallery" EntitySet="galleries" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="gallery">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="image" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="userId" Type="Int32" />
+          <NavigationProperty Name="user" Relationship="ProjectModel.FK_gallery_ToTable" FromRole="gallery" ToRole="user" />
+        </EntityType>
+        <Association Name="FK_gallery_ToTable">
+          <End Type="ProjectModel.user" Role="user" Multiplicity="0..1" />
+          <End Type="ProjectModel.gallery" Role="gallery" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="gallery">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ProjectModelStoreContainer" CdmEntityContainer="ProjectEntities1">
+        <EntityContainerMapping StorageEntityContainer="ProjectModelStoreContainer" CdmEntityContainer="ProjectEntities">
           <EntitySetMapping Name="advertises">
             <EntityTypeMapping TypeName="ProjectModel.advertise">
               <MappingFragment StoreEntitySet="advertise">
@@ -441,6 +492,15 @@
                 <ScalarProperty Name="mobileno" ColumnName="mobileno" />
                 <ScalarProperty Name="profession" ColumnName="profession" />
                 <ScalarProperty Name="image" ColumnName="image" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="galleries">
+            <EntityTypeMapping TypeName="ProjectModel.gallery">
+              <MappingFragment StoreEntitySet="gallery">
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="image" ColumnName="image" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -22,6 +22,7 @@ namespace be.Models
             this.events = new HashSet<@event>();
             this.managements = new HashSet<management>();
             this.members = new HashSet<member>();
+            this.galleries = new HashSet<gallery>();
         }
     
         public int Id { get; set; }
@@ -45,5 +46,7 @@ namespace be.Models
         public virtual ICollection<management> managements { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<member> members { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<gallery> galleries { get; set; }
     }
 }

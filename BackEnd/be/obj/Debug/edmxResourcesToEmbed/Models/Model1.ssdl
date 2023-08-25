@@ -32,6 +32,14 @@
     <Property Name="eventimage" Type="varchar" MaxLength="500" />
     <Property Name="userId" Type="int" />
   </EntityType>
+  <EntityType Name="gallery">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="image" Type="varchar" MaxLength="200" />
+    <Property Name="userId" Type="int" />
+  </EntityType>
   <EntityType Name="management">
     <Key>
       <PropertyRef Name="Id" />
@@ -114,6 +122,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_gallery_ToTable">
+    <End Role="user" Type="Self.user" Multiplicity="0..1" />
+    <End Role="gallery" Type="Self.gallery" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="gallery">
+        <PropertyRef Name="userId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_management_ToTable">
     <End Role="user" Type="Self.user" Multiplicity="0..1">
       <OnDelete Action="Cascade" />
@@ -146,6 +166,7 @@
     <EntitySet Name="advertise" EntityType="Self.advertise" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="complain" EntityType="Self.complain" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="event" EntityType="Self.event" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="gallery" EntityType="Self.gallery" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="management" EntityType="Self.management" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="members" EntityType="Self.members" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="user" EntityType="Self.user" Schema="dbo" store:Type="Tables" />
@@ -160,6 +181,10 @@
     <AssociationSet Name="FK_event_ToTable" Association="Self.FK_event_ToTable">
       <End Role="user" EntitySet="user" />
       <End Role="event" EntitySet="event" />
+    </AssociationSet>
+    <AssociationSet Name="FK_gallery_ToTable" Association="Self.FK_gallery_ToTable">
+      <End Role="user" EntitySet="user" />
+      <End Role="gallery" EntitySet="gallery" />
     </AssociationSet>
     <AssociationSet Name="FK_management_ToTable" Association="Self.FK_management_ToTable">
       <End Role="user" EntitySet="user" />

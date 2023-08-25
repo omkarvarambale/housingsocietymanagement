@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="ProjectModelStoreContainer" CdmEntityContainer="ProjectEntities1">
+  <EntityContainerMapping StorageEntityContainer="ProjectModelStoreContainer" CdmEntityContainer="ProjectEntities">
     <EntitySetMapping Name="advertises">
       <EntityTypeMapping TypeName="ProjectModel.advertise">
         <MappingFragment StoreEntitySet="advertise">
@@ -76,6 +76,15 @@
           <ScalarProperty Name="mobileno" ColumnName="mobileno" />
           <ScalarProperty Name="profession" ColumnName="profession" />
           <ScalarProperty Name="image" ColumnName="image" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="galleries">
+      <EntityTypeMapping TypeName="ProjectModel.gallery">
+        <MappingFragment StoreEntitySet="gallery">
+          <ScalarProperty Name="userId" ColumnName="userId" />
+          <ScalarProperty Name="image" ColumnName="image" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

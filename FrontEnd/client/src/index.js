@@ -5,12 +5,12 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import Lander from './lander';
 import HomePage1 from './Home1';
+import YourComponent from './home/asd';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <BrowserRouter>
-   {/* <HomePage1 /> */}
    <Lander/>
-   {/* <AddAdvertise/> */}
+   {/* <YourComponent/> */}
     </BrowserRouter>);
