@@ -64,7 +64,6 @@ function AddUser() {
     }//end of add
 
     var [uploadFile, setUploadFile] = useState("");
-    debugger;
     const handleUpload = (e) => {
         setTimeout(() => {setIsButtonDisabled(false);}, 5000);
         e.preventDefault();

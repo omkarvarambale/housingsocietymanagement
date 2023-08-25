@@ -20,10 +20,6 @@ const HomePage1 = () => {
       logoutcontent=<button onClick={gotologout}>Logout</button>;
     }
 
-
-    function logoclicked(){
-        window.location.reload();
-    }
     function gotohome(){ navi("/"); }
     function gotoadv(){ navi("/advertise"); }
     function gotogal(){ navi("/gallery"); }

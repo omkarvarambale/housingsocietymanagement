@@ -4,16 +4,15 @@ import '../Homepage.css'; // You can create a separate CSS file for styling
 import { Link, Route, Routes, useNavigate } from "react-router-dom";
 import { Button } from 'bootstrap';
 import Axios from "axios";
-import Styles from "./GalleryCss.css";
 
 function Gallery() {
   var navi = useNavigate();
 
-  var login = window.sessionStorage.getItem("login") == "true";
   var logid = window.sessionStorage.getItem("logid");
   var fname = window.sessionStorage.getItem("fname");
   var lname = window.sessionStorage.getItem("lname");
-
+  var isAdmin = window.sessionStorage.getItem("role")==1;
+  var login = window.sessionStorage.getItem("login") == "true";
 
   var [galleryImages , setGalleryImages ] = useState([]) ;
   useEffect(()=>{
@@ -92,6 +91,19 @@ function Gallery() {
     xhr.send(JSON.stringify(galleryData));
   }
 
+  function handleDeleteImage(x){
+    var xhr = new XMLHttpRequest() ;
+        xhr.open("DELETE" , "http://localhost:50052/api/Gallery/"+x) ;
+                xhr.onreadystatechange = function(){
+                    if (xhr.readyState === 4 && xhr.status === 200){
+                        var data = JSON.parse(xhr.responseText) ;
+                        console.log(data);
+                        window.location.reload() ;     
+                    }
+                }
+                xhr.setRequestHeader("Content-Type", "application/json") ;
+                xhr.send() ;
+  }
 
 return (
   <div className="homepage-container">
@@ -111,15 +123,14 @@ return (
     <div class="row">
       {galleryImages.map(u => (
               <div key={u.Id} class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+                { (isAdmin || (logid == u.userId)) ? (
+                <button className='btn btn-danger' onClick={() => handleDeleteImage(u.Id)}>Delete</button>
+                ):(<></>)}
               <img class="w-100 shadow-1-strong rounded mb-4" src={u.image} alt="img"></img>
               </div>
-              // <div key={u.Id} className={Styles.pics}>
-              // <img style={{width:'100%'}} src={u.image} alt="img"></img>
-              // </div>
         ))}
     </div>
     {addgal}
-
   </div>
 );
   }
