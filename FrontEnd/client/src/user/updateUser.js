@@ -1,9 +1,12 @@
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from "react";
+import Dropdown from '../home/Dropdown.js';
 
 const UpdateUser = () => {
 
+    var login = window.sessionStorage.getItem("login") == "true";
+    var logid = window.sessionStorage.getItem("logid");
     var navi = useNavigate();
 
     function goToHomePage() {
@@ -23,6 +26,7 @@ const UpdateUser = () => {
     }
 
     useEffect(()=>{
+        if(!login) navi("/");
 
         var xhr = new XMLHttpRequest() ;
         xhr.open("GET" , "http://localhost:50052/api/Home/"+userId) ;
@@ -51,12 +55,46 @@ const UpdateUser = () => {
         xhr.send(JSON.stringify(userData)) ;
     }
 
+    let memcontent;
+    let logincontent=<button onClick={gotologin}>Login</button>;
+    let logoutcontent;
+    let signupcontent=<button onClick={gotosignup}>Signup</button>;
+    if (login) {
+    memcontent =<button onClick={gotomem}>All Member</button>;
+    logincontent="";
+    logoutcontent=<button onClick={gotologout}>Logout</button>;
+    signupcontent="";
+    }
+    function gotohome(){ navi("/"); }
+    function gotoadv(){ navi("/advertise"); }
+    function gotogal(){ navi("/gallery"); }
+    function gotomang(){ navi("/management"); }
+    function gotocont(){ navi("/contactus"); }
+    function gotologin() {navi("/user/login"); }
+    function gotomem(){ navi("/user/members") }
+    function gotologout(){ navi("/user/logout"); }
+    function gotosignup(){ navi("/user/add");}
+
 
 
   return (
     <div>
+        <header className="header">
+      <nav className="nav-links">
+        <button onClick={gotohome}>Home</button>
+        <button onClick={gotoadv}>Advertise</button>
+        {memcontent}
+        <button onClick={gotogal}>Gallery</button>
+        <button onClick={gotomang}>Management People</button>
+        <button onClick={gotocont}>Contact Us</button>
+        {logincontent}
+        {signupcontent}
+        { login ? (<Dropdown />):(<></>)}
+      </nav>
+    </header>
             <br></br>
             <center>
+            <h2>Update Profile</h2>
 
             <table>
                 <tr>
@@ -97,11 +135,6 @@ const UpdateUser = () => {
                 <tr>
                     <td>Profession :</td>
                     <td><input name="profession" type="text" placeholder="profession" value={userData.profession} onChange={userDataChange}/></td>
-                    <br></br>
-                </tr>
-                <tr>
-                    <td>Image :</td>
-                    <td><input name="image" type="text" placeholder="image path" value={userData.image} onChange={userDataChange}/></td>
                     <br></br>
                 </tr>
 

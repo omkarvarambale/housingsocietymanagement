@@ -122,20 +122,6 @@ return (
     </div>
     <br/>
     
-    {/* <div className="society-info">
-        <div>
-            <input type='file' onChange={(e)=>setUploadFile(e.target.files[0])}></input>
-            <button onClick={handleUpload}>upload</button>
-        </div>
-        <div>
-            <input description data></input>
-        </div>
-        <div style={{backgroundColor:"red"}}><h1></h1></div>
-
-    </div> */}
-    
-    <footer className="footer">
-    </footer>
   </div>
 );
   }

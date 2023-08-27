@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import '../Homepage.css'; // You can create a separate CSS file for styling
 import { Link, Route, Routes, useNavigate } from "react-router-dom";
+import Dropdown from '../home/Dropdown.js';
 
 
 function HomePage1() {
@@ -19,11 +20,13 @@ function HomePage1() {
   let logincontent = <button onClick={gotologin}>Login</button>;
   let logincontent2;
   let logoutcontent;
+  let signupcontent=<button onClick={gotosignup}>Signup</button>;
   if (login) {
     memcontent = <button onClick={gotomem}>All Member</button>;
     logincontent = "";
     logoutcontent = <button onClick={gotologout}>Logout</button>;
     logincontent2 = <button style={{margin:"10px"}} className='btn btn-info' onClick={gotoaddadv}>Add Advertise</button>;
+    signupcontent="";
   }
 
   function gotohome() { navi("/"); }
@@ -35,6 +38,7 @@ function HomePage1() {
   function gotomem() { navi("/user/members") }
   function gotomang() { navi("/management"); }
   function gotologout() { navi("/user/logout"); }
+  function gotosignup(){ navi("/user/add");}
 
   useEffect(() => {
 
@@ -76,12 +80,13 @@ function HomePage1() {
           <button onClick={gotomang}>Management People</button>
           <button onClick={gotocont}>Contact Us</button>
           {logincontent}
-          {logoutcontent}
+          {signupcontent}
+          { login ? (<Dropdown />):(<></>)}
         </nav>
       </header>
-
+      <br/>
+      <center><h2>Advertise</h2></center>
       {logincontent2}
-
       <div className="society-info">
         {adv.map(u => (
               <div key={u.Id} style={{width:"340px", border:"2px solid black",padding:"10px",margin:"10px" ,overflow:"auto", display:"inline-block"}}>
@@ -94,41 +99,8 @@ function HomePage1() {
 
       </div>
 
-      <footer className="footer">
-        {/* Footer content goes here */}
-      </footer>
     </div>
   );
 };
 
 export default HomePage1;
-
-
-{/* <div style={{width:"350px",height:"500px", border:"2px solid black",padding:"10px",margin:"10px" ,overflow:"auto", display:"inline-block"}}>
-          <img style={{width:"320px"}} src='/photos/adv2.jpg'></img>
-          <br/>
-          <p style={{textAlign:"justify"}}>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit libero quisquam ipsa atque non illum? Voluptatem est
-    aliquid nemo alias eos debitis. Vero quidem consequatur voluptates placeat illum nihil qui.
-    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit libero quisquam ipsa atque non illum? Voluptatem est
-    aliquid nemo alias eos debitis. Vero quidem consequatur voluptates placeat illum nihil qui
-    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit libero quisquam ipsa atque non illum? Voluptatem est
-    aliquid nemo alias eos debitis. Vero quidem consequatur voluptates placeat illum nihil qui
-    </p>
-          <p>date</p>
-        </div>
-        <div style={{width:"350px",height:"500px", border:"2px solid black",padding:"10px",margin:"10px" ,overflow:"auto", display:"inline-block"}}>
-          <img style={{width:"320px"}} src='/photos/adv2.jpg'></img>
-          <br/>
-          <p style={{textAlign:"justify"}}>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit libero quisquam ipsa atque non illum? Voluptatem est
-    aliquid nemo alias eos debitis. Vero quidem consequatur voluptates placeat illum nihil qui.
-    </p>
-          <p>date</p>
-        </div>
-        <div style={{width:"350px",height:"500px", border:"2px solid black",padding:"10px",margin:"10px" ,overflow:"auto", display:"inline-block"}}>
-          <img style={{width:"320px"}} src='/photos/adv2.jpg'></img>
-          <br/>
-          <p style={{textAlign:"justify"}}>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit libero quisquam ipsa atque non illum? Voluptatem est
-    aliquid nemo alias eos debitis. Vero quidem consequatur voluptates placeat illum nihil qui.
-    </p>
-          <p>date</p>
-        </div> */}

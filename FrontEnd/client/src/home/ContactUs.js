@@ -1,6 +1,7 @@
 import React from 'react';
 import '../Homepage.css'; // You can create a separate CSS file for styling
 import { Link, Route, Routes, useNavigate } from "react-router-dom";
+import Dropdown from '../home/Dropdown.js';
 
 function ContactUs() {
   var navi = useNavigate();
@@ -12,10 +13,12 @@ function ContactUs() {
   let memcontent;
   let logincontent=<button onClick={gotologin}>Login</button>;
   let logoutcontent;
+  let signupcontent=<button onClick={gotosignup}>Signup</button>;
   if (login) {
     memcontent =<button onClick={gotomem}>All Member</button>;
     logincontent="";
     logoutcontent=<button onClick={gotologout}>Logout</button>;
+    signupcontent="";
   }
   
   function gotohome(){ navi("/"); }
@@ -26,6 +29,7 @@ function ContactUs() {
   function gotologin() {navi("/user/login"); }
   function gotomem(){ navi("/user/members") }
   function gotologout(){ navi("/user/logout"); }
+  function gotosignup(){ navi("/user/add");}
 
 return (
   <div className="homepage-container">
@@ -38,7 +42,8 @@ return (
         <button onClick={gotomang}>Management People</button>
         <button style={{color:"red"}} onClick={gotocont}>Contact Us</button>
         {logincontent}
-        {logoutcontent}
+        {signupcontent}
+        { login ? (<Dropdown />):(<></>)}
       </nav>
     </header>
     
@@ -68,8 +73,10 @@ return (
       </div>
     </div>
   </div>
-    
+  
     </div>
+
+
   </div>
 );
   }

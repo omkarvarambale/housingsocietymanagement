@@ -2,8 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Route, Routes, useNavigate } from "react-router-dom";
 
-
-function UserLogin(props) {
+function UserLogin() {
 
     var [userData, setUserData] = useState({
         "fname": "", "lname": "", "email": "", "password": "",
@@ -12,6 +11,11 @@ function UserLogin(props) {
     });
 
     var login = window.sessionStorage.getItem("login") == "true";
+    useEffect(()=>{
+        if(login){
+            navi("/");
+        }
+    } , []);
     var navi = useNavigate();
 
     function gotohome(){ navi("/"); }
@@ -20,6 +24,8 @@ function UserLogin(props) {
     function gotocont(){ navi("/contactus"); }
     function gotologin() {navi("/user/login"); }
     function gotomang(){ navi("/management"); }
+    function gotosignup(){ navi("/user/add");}
+
 
     var [errorMsg, setUsermsg] = useState("");
     const showMessageWithDelay = () => {
@@ -51,8 +57,8 @@ function UserLogin(props) {
                 else{
                     window.sessionStorage.setItem("login", true) ;
                     window.sessionStorage.setItem("fname",data.fname);
-                    window.sessionStorage.setItem("logid",data.Id);
                     window.sessionStorage.setItem("lname",data.lname);
+                    window.sessionStorage.setItem("logid",data.Id);
                     if(data.email=="admin@gmail.com") window.sessionStorage.setItem("role",1);
                     else window.sessionStorage.setItem("role",2);
                     navi("/") ;
@@ -75,14 +81,16 @@ function UserLogin(props) {
                     <button onClick={gotomang}>Management People</button>
                     <button onClick={gotocont}>Contact Us</button>
                     <button style={{color:"red"}} onClick={gotologin}>Login</button>
+                    <button onClick={gotosignup}>Signup</button>
                 </nav>
                 </header>
             </div>
 
+            <br/>
 
+            <center><h3>User Login</h3></center>
 
             <br></br>
-
             <center>
             <div style={{width:"50%"}} class="mb-3">
                 <input name="email" type="text"class="form-control" placeholder="email" value={userData.email} onChange={userDataChange}/>
@@ -102,104 +110,3 @@ function UserLogin(props) {
 }
 
 export default UserLogin;
-
-
-
-
-
-
-
-
-
-
-// import { useState } from "react";
-// import { Link } from "react-router-dom";
-// import { Route, Routes, useNavigate } from "react-router-dom";
-
-
-// function UserLogin() {
-
-//     var [userData, setUserData] = useState({
-//         "fname": "", "lname": "", "email": "", "password": "",
-//         "flatno": "", "familymember": "", "mobileno": "",
-//         "profession": "", "image": ""
-//     });
-
-//     var navi = useNavigate();
-
-//     function goToHomePage() {
-//         debugger;
-//         navi("/");
-//     }
-
-
-//     // var [userData, setUserData] = useState({
-//     //     "email": "", "password": ""
-//     // });
-
-//     var userDataChange = (x) => {
-//         userData[x.target.name] = x.target.value;
-//         setUserData({ ...userData });
-//     }
-
-
-//     var login = () => {
-
-//         var xhr = new XMLHttpRequest();
-//         xhr.open("POST", "http://localhost:50052/api/Login");
-//         xhr.onreadystatechange = function () {
-//             if (xhr.readyState === 4 && xhr.status === 200) {
-//                 var data = JSON.parse(xhr.responseText) ;
-//                 debugger;
-//                 if(data==null)
-//                 {
-//                     //handleUpdate();
-//                     //Reload();
-//                     window.location.reload() ;
-//                 } 
-                    
-//                 setUserData({...data}) ;
-//                 //const dataJSON = JSON.stringify(userData);
-                
-//                 sessionStorage.setItem('myLoggedInUser', JSON.stringify(data));
-//                 goToHomePage();
-                
-//             }
-//         }
-//         xhr.setRequestHeader("Content-Type", "application/json");
-//         xhr.send(JSON.stringify(userData));
-        
-
-//     }//end of add
-
-//     return (
-//         <div>
-//             <br></br>
-//             <center>
-
-//                 <table>
-//                     <tr>
-//                         <td>Email :</td>
-//                         <td><input name="email" type="text" placeholder="email" value={userData.email} onChange={userDataChange} /></td>
-//                         <br></br>
-//                     </tr>
-//                     <tr>
-//                         <td>password :</td>
-//                         <td><input name="password" type="text" placeholder="password" value={userData.password} onChange={userDataChange} /></td>
-//                         <br></br>
-//                     </tr>
-
-//                     <tr>
-//                         <td style={{ textAlign: "center" }} colSpan={2}>
-//                             <button className="btn btn-success" onClick={login}> LogIn</button>
-//                         </td>
-//                     </tr>
-//                 </table>
-//             </center>
-
-//         </div>
-//     )
-
-// }
-
-// export default UserLogin;

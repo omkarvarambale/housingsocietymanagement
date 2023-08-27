@@ -5,7 +5,7 @@ import Axios from "axios";
 
 
 
-function AddUser() {
+function AddEvent() {
 
     const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
@@ -16,7 +16,7 @@ function AddUser() {
     var admin = window.sessionStorage.getItem("role") == 1;
 
     useEffect(()=>{
-        if(login){
+        if(!admin){
             navi("/");
         }
     } , []);
@@ -30,38 +30,37 @@ function AddUser() {
     function gotocont(){ navi("/contactus"); }
     function gotomang(){ navi("/management"); }
     function gotosignup(){ navi("/user/add");}
+    function gotoevent(){ navi("/event"); }
 
-    var [userData, setUserData] = useState({
-        "fname": "", "lname": "", "email": "", "password": "",
-        "flatno": "", "familymember": "", "mobileno": "",
-        "profession": "", "image": ""
+    var [eventData, setEventData] = useState({
+        "eventname": "", "description": "", "place": "", "eventimage":"",
+        "eventdate": "", "eventtime": "", "userId": logid
     });
 
-    var userDataChange = (x) => {
-        userData[x.target.name] = x.target.value;
-        setUserData({ ...userData });
+    var eventDataChange = (x) => {
+        eventData[x.target.name] = x.target.value;
+        setEventData({ ...eventData });
     }
 
     const updateImage = (newImagePath) => {
-        const updatedUserData = { ...userData, image: newImagePath };
-        setUserData(updatedUserData);
+        const updatedEventData = { ...eventData, eventimage: newImagePath };
+        setEventData(updatedEventData);
     };
 
     var add = () => {
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", "http://localhost:50052/api/Home");
+        xhr.open("POST", "http://localhost:50052/api/Event");
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4 && xhr.status === 200) {
-                gotologin();
+                gotoevent();
             }
         }
         xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.send(JSON.stringify(userData));
+        xhr.send(JSON.stringify(eventData));
     }//end of add
 
     var [uploadFile, setUploadFile] = useState("");
     const handleUpload = (e) => {
-        setTimeout(() => {setIsButtonDisabled(false);}, 5000);
         e.preventDefault();
         const formData = new FormData ();
         formData.append("file", uploadFile);
@@ -70,12 +69,13 @@ function AddUser() {
         Axios.post("https://api.cloudinary.com/v1_1/dvsmrv64h/image/upload",formData
         )
         .then((response) => {
-        console.log(response);
-        console.log(response.data.secure_url);
-        updateImage(response.data.secure_url);
+            console.log(response);
+            console.log(response.data.secure_url);
+            updateImage(response.data.secure_url);
+            setIsButtonDisabled(false)
         })
         .catch((error) => {
-        console.log(error);
+            console.log(error);
         });
     };
 
@@ -96,121 +96,82 @@ function AddUser() {
             </div>
             <br></br>
             <center>
-                <h3>Register Here</h3>
+                <h3>Add Event Here</h3>
 
                 <table className="table" style={{width:"75%"}}>
     <tbody>
         <tr>
-            <td>First Name:</td>
+            <td>Event Name:</td>
             <td>
                 <input
-                    name="fname"
+                    name="eventname"
                     type="text"
-                    placeholder="First Name"
-                    value={userData.fname}
-                    onChange={userDataChange}
+                    placeholder="Event Name"
+                    value={eventData.eventname}
+                    onChange={eventDataChange}
                     className="form-control"
                 />
             </td>
         </tr>
         <tr>
-            <td>Last Name:</td>
+            <td>Event Description:</td>
             <td>
                 <input
-                    name="lname"
+                    name="description"
                     type="text"
-                    placeholder="Last Name"
-                    value={userData.lname}
-                    onChange={userDataChange}
+                    placeholder="Description"
+                    value={eventData.description}
+                    onChange={eventDataChange}
                     className="form-control"
                 />
             </td>
         </tr>
         <tr>
-            <td>Email:</td>
+            <td>Place:</td>
             <td>
                 <input
-                    name="email"
+                    name="place"
                     type="text"
-                    placeholder="Email"
-                    value={userData.email}
-                    onChange={userDataChange}
+                    placeholder="Event Place"
+                    value={eventData.place}
+                    onChange={eventDataChange}
                     className="form-control"
                 />
             </td>
         </tr>
         <tr>
-            <td>Password:</td>
+            <td>Event Date:</td>
             <td>
                 <input
-                    name="password"
-                    type="password"
-                    placeholder="Password"
-                    value={userData.password}
-                    onChange={userDataChange}
+                    name="eventdate"
+                    type="date"
+                    placeholder="Event Date"
+                    value={eventData.eventdate}
+                    onChange={eventDataChange}
                     className="form-control"
                 />
             </td>
         </tr>
         <tr>
-            <td>Flat No:</td>
+            <td>Event Time:</td>
             <td>
                 <input
-                    name="flatno"
-                    type="text"
-                    placeholder="Flat No"
-                    value={userData.flatno}
-                    onChange={userDataChange}
+                    name="eventtime"
+                    type="time"
+                    placeholder="Event Time"
+                    value={eventData.eventtime}
+                    onChange={eventDataChange}
                     className="form-control"
                 />
             </td>
         </tr>
         <tr>
-            <td>Member:</td>
+            <td>Event Image:</td>
             <td>
                 <input
-                    name="familymember"
-                    type="number"
-                    placeholder="Member"
-                    value={userData.familymember}
-                    onChange={userDataChange}
-                    className="form-control"
-                />
-            </td>
-        </tr>
-        <tr>
-            <td>Mobile No:</td>
-            <td>
-                <input
-                    name="mobileno"
-                    type="text"
-                    placeholder="Mobile No"
-                    value={userData.mobileno}
-                    onChange={userDataChange}
-                    className="form-control"
-                />
-            </td>
-        </tr>
-        <tr>
-            <td>Profession:</td>
-            <td>
-                <input
-                    name="profession"
-                    type="text"
-                    placeholder="Profession"
-                    value={userData.profession}
-                    onChange={userDataChange}
-                    className="form-control"
-                />
-            </td>
-        </tr>
-        <tr>
-            <td>Image:</td>
-            <td>
-                <input
-                    name="image"
+                    name="eventimage"
                     type="file"
-                    placeholder="Image Path"
+                    placeholder="Event Image"
                     onChange={(e) => setUploadFile(e.target.files[0])}
                     className="form-control-file"
                 />
@@ -219,7 +180,7 @@ function AddUser() {
         </tr>
         <tr>
             <td style={{ textAlign: "center" }} colSpan={2}>
-                <button className="btn btn-success" disabled={isButtonDisabled} onClick={add}>Add User</button>
+                <button className="btn btn-success" disabled={isButtonDisabled} onClick={add}>Add Event</button>
             </td>
         </tr>
     </tbody>
@@ -233,4 +194,4 @@ function AddUser() {
 
 }
 
-export default AddUser;
+export default AddEvent;

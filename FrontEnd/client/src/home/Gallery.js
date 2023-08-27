@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import '../Homepage.css'; // You can create a separate CSS file for styling
 import { Link, Route, Routes, useNavigate } from "react-router-dom";
 import { Button } from 'bootstrap';
+import Dropdown from './Dropdown.js';
 import Axios from "axios";
 
 function Gallery() {
@@ -28,9 +29,6 @@ function Gallery() {
     xhr.send() ;
   } , []);
 
-
-
-
   function gotohome(){ navi("/"); }
   function gotoadv(){ navi("/advertise"); }
   function gotogal(){ navi("/gallery"); }
@@ -39,6 +37,7 @@ function Gallery() {
   function gotologin() {navi("/user/login"); }
   function gotomem(){ navi("/user/members") }
   function gotologout(){ navi("/user/logout"); }
+  function gotosignup(){ navi("/user/add");}
 
 
   var [galleryData, setGalleryData] = useState({ "userId": logid , "image": "" });
@@ -69,10 +68,12 @@ function Gallery() {
   let logincontent=<button onClick={gotologin}>Login</button>;
   let logoutcontent;
   let addgal;
+  let signupcontent=<button onClick={gotosignup}>Signup</button>;
   if (login) {
     memcontent =<button onClick={gotomem}>All Member</button>;
     logincontent="";
     logoutcontent=<button onClick={gotologout}>Logout</button>;
+    signupcontent="";
     addgal=<div>
           <input name="image" type="file" required placeholder="image" onChange={(e)=>setUploadFile(e.target.files[0])} />
           <button className="btn btn-primary" onClick={handleUpload}>save img</button>
@@ -116,7 +117,8 @@ return (
         <button onClick={gotomang}>Management People</button>
         <button onClick={gotocont}>Contact Us</button>
         {logincontent}
-        {logoutcontent}
+        {signupcontent}
+        { login ? (<Dropdown />):(<></>)}
       </nav>
     </header>
     <center><br/><h3>Society Photos</h3><br/></center>

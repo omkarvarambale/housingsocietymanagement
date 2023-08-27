@@ -126,29 +126,3 @@ function SignUp(props) {
 
 export default SignUp;
 
-
-
-// import React, { useState } from 'react';
-
-// function App() {
-//   const [selectedFileName, setSelectedFileName] = useState('');
-
-//   const handleFileChange = (event) => {
-//     const file = event.target.files[0];
-    
-//     if (file) {
-//       const fullPath = file.name; // This might be something like "C:\fakepath\u1.avif"
-//       const fileName = fullPath.split('\\').pop(); // Get the last part after splitting by backslash
-//       setSelectedFileName(fileName);
-//     }
-//   };
-
-//   return (
-//     <div>
-//       <input type="file" onChange={handleFileChange} />
-//       {selectedFileName && <p>Selected file name: {selectedFileName}</p>}
-//     </div>
-//   );
-// }
-
-// export default App;
