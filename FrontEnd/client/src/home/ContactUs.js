@@ -4,6 +4,9 @@ import { Link, Route, Routes, useNavigate } from "react-router-dom";
 import Dropdown from '../home/Dropdown.js';
 import { useState, useEffect } from "react";
 
+import { ToastContainer, toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
+
 
 function ContactUs() {
   var navi = useNavigate();
@@ -44,6 +47,14 @@ function ContactUs() {
   }
 
   const handleSendEmail = () => {
+
+    if(emailData.name == ""){
+      toast.error("Name can not be empty!!!") ; return;}
+    if(emailData.email == ""){
+      toast.error("Email Id can not be empty!!!") ; return;}
+    if(emailData.message == ""){
+      toast.error("Message body can not be empty!!!") ; return;}
+
     debugger;
     const xhr = new XMLHttpRequest();
     xhr.open('POST', 'http://localhost:50052/ContactUs', true);
@@ -114,6 +125,22 @@ return (
   </div>
   
     </div>
+
+
+    <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+            />
+
+
 
 
   </div>

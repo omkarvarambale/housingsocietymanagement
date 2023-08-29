@@ -2,6 +2,9 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Route, Routes, useNavigate } from "react-router-dom";
 
+import { ToastContainer, toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
+
 function UserLogin() {
 
     var [userData, setUserData] = useState({
@@ -41,6 +44,15 @@ function UserLogin() {
     }
 
     var clicklogin = () => {
+
+
+        if(userData.email == ""){
+            toast.error("Email Id can not be empty!!!") ; return;}
+        if(userData.password == ""){
+            toast.error("Password can not be empty!!!") ; return;}
+
+
+
         var xhr = new XMLHttpRequest();
         xhr.open("POST", "http://localhost:50052/api/Login");
         xhr.onreadystatechange = function () {
@@ -52,6 +64,7 @@ function UserLogin() {
                     console.log("inside login");
                     window.sessionStorage.setItem("login", false) ;
                     setUsermsg("Log in failed");
+                    toast.error("Log in failed");
                     showMessageWithDelay();
                 }
                 else{
@@ -61,6 +74,7 @@ function UserLogin() {
                     window.sessionStorage.setItem("logid",data.Id);
                     if(data.email=="admin@gmail.com") window.sessionStorage.setItem("role",1);
                     else window.sessionStorage.setItem("role",2);
+                    toast.success("Login Successfull");
                     navi("/") ;
                 } 
             }
@@ -107,6 +121,23 @@ function UserLogin() {
             <br></br>
             <div style={{color:"red"}}>{errorMsg}</div>    
             </center>
+
+
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+            />
+
+
+
 
         </div>
     )

@@ -2,6 +2,8 @@ import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import Dropdown from '../home/Dropdown.js';
+import { ToastContainer, toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 const UpdateUser = () => {
 
@@ -41,6 +43,15 @@ const UpdateUser = () => {
     } , []);
 
     var saveUser =()=>{
+
+        if(userData.fname == ""){
+            toast.error("First Name can not be empty!!!") ; return;}
+        if(userData.lname == ""){
+            toast.error("Last Name can not be empty!!!") ; return;}
+        if(userData.mobileno == ""){
+            toast.error("Mobile no can not be empty!!!") ; return;}
+        if(userData.familymember == ""){
+            toast.error("Family Member can not be empty!!!") ; return;}
 
         var xhr = new XMLHttpRequest() ;
         xhr.open("PUT" , "http://localhost:50052/api/Home/"+userId) ;
@@ -96,59 +107,181 @@ const UpdateUser = () => {
             <center>
             <h2>Update Profile</h2>
 
-            <table>
-                <tr>
-                    <td>First Name :</td>
-                    <td><input name="fname" type="text" placeholder="First Name" value={userData.fname} onChange={userDataChange} /></td>
-                    <br></br>
-                </tr>
-                <tr>
-                    <td>Last Name :</td>
-                    <td><input name="lname" type="text" placeholder="Last Name" value={userData.lname} onChange={userDataChange} /></td>
-                    <br></br>
-                </tr>
-                <tr>
-                    <td>Email :</td>
-                    <td><input name="email" readOnly type="text" placeholder="email" value={userData.email} onChange={userDataChange} /></td>
-                    <br></br>
-                </tr>
-                <tr>
-                    <td>password :</td>
-                    <td><input name="password" type="text" placeholder="password" value={userData.password} onChange={userDataChange} /></td>
-                    <br></br>
-                </tr>
-                <tr>
-                    <td>Flat No :</td>
-                    <td><input name="flatno" type="text" placeholder="Flat no" value={userData.flatno} onChange={userDataChange}/></td>
-                    <br></br>
-                </tr>
-                <tr>
-                    <td>Member :</td>
-                    <td><input name="familymember" type="number" placeholder="Member" value={userData.familymember} onChange={userDataChange}/></td>
-                    <br></br>
-                </tr>
-                <tr>
-                    <td>Mobile No :</td>
-                    <td><input name="mobileno" type="text" placeholder="Mobile no" value={userData.mobileno} onChange={userDataChange}/></td>
-                    <br></br>
-                </tr>
-                <tr>
-                    <td>Profession :</td>
-                    <td><input name="profession" type="text" placeholder="profession" value={userData.profession} onChange={userDataChange}/></td>
-                    <br></br>
-                </tr>
+            <div className="container">
+    <div className="row justify-content-center">
+        <div className="col-md-6">
+            <table className="table">
+                <tbody>
+                    <tr>
+                        <td>First Name:</td>
+                        <td>
+                            <input
+                                className="form-control"
+                                name="fname"
+                                type="text"
+                                placeholder="First Name"
+                                value={userData.fname}
+                                onChange={userDataChange}
+                            />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Last Name:</td>
+                        <td>
+                            <input
+                                className="form-control"
+                                name="lname"
+                                type="text"
+                                placeholder="Last Name"
+                                value={userData.lname}
+                                onChange={userDataChange}
+                            />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Email:</td>
+                        <td>
+                            <input
+                                className="form-control"
+                                name="email"
+                                readOnly
+                                type="text"
+                                placeholder="Email"
+                                value={userData.email}
+                                onChange={userDataChange}
+                            />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Flat No:</td>
+                        <td>
+                            <input
+                                className="form-control"
+                                name="flatno"
+                                type="text"
+                                placeholder="Flat No"
+                                value={userData.flatno}
+                                onChange={userDataChange}
+                            />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Member:</td>
+                        <td>
+                            <input
+                                className="form-control"
+                                name="familymember"
+                                type="number"
+                                placeholder="Member"
+                                value={userData.familymember}
+                                onChange={userDataChange}
+                            />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Mobile No:</td>
+                        <td>
+                            <input
+                                className="form-control"
+                                name="mobileno"
+                                type="text"
+                                placeholder="Mobile No"
+                                value={userData.mobileno}
+                                onChange={userDataChange}
+                            />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Profession:</td>
+                        <td>
+                            <input
+                                className="form-control"
+                                name="profession"
+                                type="text"
+                                placeholder="Profession"
+                                value={userData.profession}
+                                onChange={userDataChange}
+                            />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colSpan={2} style={{ textAlign: "center" }}>
+                            <button className="btn btn-success" onClick={saveUser}>
+                                Save User
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
 
-                <tr>
-                    <td style={{textAlign:"center"}} colSpan={2}>
-                    <button className="btn btn-success" onClick={saveUser} > Save User</button>
-                    </td>
-                </tr>
-        </table>
+
             </center>
+
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+            />
+
+
             
         </div>
   );
 };
 
 export default UpdateUser;
+
+
+// <table>
+// <tr>
+//     <td>First Name :</td>
+//     <td><input name="fname" type="text" placeholder="First Name" value={userData.fname} onChange={userDataChange} /></td>
+//     <br></br>
+// </tr>
+// <tr>
+//     <td>Last Name :</td>
+//     <td><input name="lname" type="text" placeholder="Last Name" value={userData.lname} onChange={userDataChange} /></td>
+//     <br></br>
+// </tr>
+// <tr>
+//     <td>Email :</td>
+//     <td><input name="email" readOnly type="text" placeholder="email" value={userData.email} onChange={userDataChange} /></td>
+//     <br></br>
+// </tr>
+// <tr>
+//     <td>Flat No :</td>
+//     <td><input name="flatno" type="text" placeholder="Flat no" value={userData.flatno} onChange={userDataChange}/></td>
+//     <br></br>
+// </tr>
+// <tr>
+//     <td>Member :</td>
+//     <td><input name="familymember" type="number" placeholder="Member" value={userData.familymember} onChange={userDataChange}/></td>
+//     <br></br>
+// </tr>
+// <tr>
+//     <td>Mobile No :</td>
+//     <td><input name="mobileno" type="text" placeholder="Mobile no" value={userData.mobileno} onChange={userDataChange}/></td>
+//     <br></br>
+// </tr>
+// <tr>
+//     <td>Profession :</td>
+//     <td><input name="profession" type="text" placeholder="profession" value={userData.profession} onChange={userDataChange}/></td>
+//     <br></br>
+// </tr>
+// <tr>
+//     <td style={{textAlign:"center"}} colSpan={2}>
+//     <button className="btn btn-success" onClick={saveUser} > Save User</button>
+//     </td>
+// </tr>
+// </table>

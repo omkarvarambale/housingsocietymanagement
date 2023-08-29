@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import Axios from "axios";
-
+import { ToastContainer, toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 
 function AddUser() {
@@ -48,6 +49,27 @@ function AddUser() {
     };
 
     var add = () => {
+
+
+        if(userData.fname == ""){
+            toast.error("First Name can not be empty!!!") ; return;}
+        if(userData.lname == ""){
+            toast.error("Last Name can not be empty!!!") ; return;}
+        if(userData.email == ""){
+            toast.error("Email can not be empty!!!") ; return;}
+        if(userData.password == ""){
+            toast.error("Password can not be empty!!!") ; return;}
+        if(userData.mobileno == ""){
+            toast.error("Mobile no can not be empty!!!") ; return;}
+        if(userData.familymember == ""){
+            toast.error("Family Member can not be empty!!!") ; return;}
+        if(userData.image == ""){
+            toast.error("Image can not be empty!!!") ; return;}
+        
+
+
+
+
         var xhr = new XMLHttpRequest();
         xhr.open("POST", "http://localhost:50052/api/Home");
         xhr.onreadystatechange = function () {
@@ -61,7 +83,8 @@ function AddUser() {
 
     var [uploadFile, setUploadFile] = useState("");
     const handleUpload = (e) => {
-        setTimeout(() => {setIsButtonDisabled(false);}, 5000);
+
+        if(uploadFile == ""){toast.error("Image can not be empty!!!") ; return;}
         e.preventDefault();
         const formData = new FormData ();
         formData.append("file", uploadFile);
@@ -73,6 +96,7 @@ function AddUser() {
         console.log(response);
         console.log(response.data.secure_url);
         updateImage(response.data.secure_url);
+        setIsButtonDisabled(false)
         })
         .catch((error) => {
         console.log(error);
@@ -225,9 +249,22 @@ function AddUser() {
     </tbody>
 </table>
 
-
-                
             </center>
+
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+            />
+
+
         </div>
     )
 
