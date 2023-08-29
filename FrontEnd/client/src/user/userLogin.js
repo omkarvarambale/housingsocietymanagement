@@ -98,6 +98,9 @@ function UserLogin() {
             <div style={{width:"50%"}} class="mb-3">
                 <input name="password" type="password" class="form-control" placeholder="password" value={userData.password} onChange={userDataChange}/>
             </div>
+            <div style={{width:"50%", textAlign:"right"}} class="mb-3">
+                <Link to={`/forgotpassword`}>forgot password?</Link>
+            </div>
             <div style={{width:"50%"}} class="d-grid gap-2">
                 <button class="btn btn-success" onClick={clicklogin}>Log In</button>
             </div>

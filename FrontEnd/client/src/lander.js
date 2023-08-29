@@ -24,6 +24,8 @@ import Event from "./user/event.js";
 import AddEvent from "./user/addEvent.js";
 import Complain from "./user/complain.js";
 import AddComplain from "./user/addComplain.js";
+import ForgotPassword from "./home/forgotpassword.js";
+import VerifyPassword from "./home/verifypassword.js"
 
 
 function Lander() {
@@ -111,6 +113,8 @@ function Lander() {
                 <Route path="/event/add" element={<AddEvent></AddEvent>} ></Route>
                 <Route path="/complain" element={<Complain></Complain>} ></Route>
                 <Route path="/complain/add" element={<AddComplain></AddComplain>} ></Route>
+                <Route path="/forgotpassword" element={<ForgotPassword></ForgotPassword>} ></Route>
+                <Route path="/verifypassword" element={<VerifyPassword></VerifyPassword>} ></Route>
             </Routes>
             <Footer />
            

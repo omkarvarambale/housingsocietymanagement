@@ -2,6 +2,8 @@ import React from 'react';
 import '../Homepage.css'; // You can create a separate CSS file for styling
 import { Link, Route, Routes, useNavigate } from "react-router-dom";
 import Dropdown from '../home/Dropdown.js';
+import { useState, useEffect } from "react";
+
 
 function ContactUs() {
   var navi = useNavigate();
@@ -31,6 +33,42 @@ function ContactUs() {
   function gotologout(){ navi("/user/logout"); }
   function gotosignup(){ navi("/user/add");}
 
+  const [recipientEmail, setRecipientEmail] = useState('');
+  const [responseMessage, setResponseMessage] = useState('');
+  var [emailData, setEmailData] = useState({
+    "name":"","email":"","message":""});
+
+  var emailDataChange = (x) => {
+    emailData[x.target.name] = x.target.value;
+    setEmailData({ ...emailData });
+  }
+
+  const handleSendEmail = () => {
+    debugger;
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', 'http://localhost:50052/ContactUs', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    
+    xhr.onload = function () {
+      if (xhr.status === 200) {
+        //debugger
+        const receivedOtp = parseInt(xhr.responseText); 
+        console.log(receivedOtp);
+        //setGeneratedOtp(receivedOtp); 
+        //sessionStorage.setItem('generatedOtp', xhr.responseText); 
+        //sessionStorage.setItem('email', recipientEmail); 
+        setResponseMessage('We received your enquiry');
+      } else {
+        setResponseMessage('Error: ' + xhr.statusText);
+      }
+    };
+    xhr.onerror = function () {
+      setResponseMessage('Network error occurred');
+    };
+    xhr.send(JSON.stringify(emailData));
+  };
+
+
 return (
   <div className="homepage-container">
     <header className="header">
@@ -52,24 +90,25 @@ return (
     <div class="row justify-content-center">
       <div class="col-md-6">
         <h2>Contact Us</h2>
-        <form>
+      
           <div class="form-group">
             <label for="name">Name</label><br/>
-            <input type="text" class="form-control" id="name" placeholder="Enter your name"/>
+            <input type="text" class="form-control" name="name" onChange={emailDataChange} placeholder="Enter your name"/>
           </div>
           <br/>
           <div class="form-group">
             <label for="email">Email address</label><br/>
-            <input type="email" class="form-control" id="email" placeholder="Enter email"/>
+            <input type="email" class="form-control" name="email" onChange={emailDataChange} placeholder="Enter email"/>
           </div>
           <br/>
           <div class="form-group">
             <label for="message">Message</label><br/>
-            <textarea class="form-control" id="message" rows="4" placeholder="Enter your message"></textarea>
+            <textarea class="form-control" name="message" rows="4" onChange={emailDataChange} placeholder="Enter your message"></textarea>
           </div>
+          <div>{responseMessage}</div>
           <br/>
-          <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
+          <button class="btn btn-primary" onClick={handleSendEmail}>Submit</button>
+       
       </div>
     </div>
   </div>

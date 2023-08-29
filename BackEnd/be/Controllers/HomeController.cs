@@ -44,6 +44,29 @@ namespace WebApplication1.Controllers
             //else return "Failed to add data.";
         }
 
+        [HttpPost]
+        [Route("repass")]
+        public IHttpActionResult SendEmail(user u)
+        {
+            try
+            {
+                List<user> users = projectEntities.users.ToList();
+                user foundUser = (from uf in users
+                                  where uf.email == u.email
+                                  select uf).FirstOrDefault();
+                if (foundUser == null) throw new Exception();
+                else foundUser.password = u.password;
+                projectEntities.SaveChanges();
+                return Ok("success");
+            }
+            catch (Exception e)
+            {
+                return BadRequest("Email not found");
+
+            }
+        }
+
+
         // PUT: api/Home/5
         public bool Put(int id, user u)
         {

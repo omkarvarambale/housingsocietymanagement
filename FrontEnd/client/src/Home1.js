@@ -55,7 +55,7 @@ const HomePage1 = () => {
         <br></br>
         <center>
         <p style={{fontSize:"18px", width:"75%", textAlign:"justify"}}>"Welcome to the epitome of modern living – 'Siddhivinayak Housing Society.'
-          Nestled in the heart of [Location], our society is a harmonious blend of comfort, convenience, and community.
+          Nestled in the heart of Satara, our society is a harmonious blend of comfort, convenience, and community.
           With a vision to provide a tranquil and vibrant living experience,
           we invite you to explore a world where contemporary architecture meets serene surroundings.
           Join us in redefining what it means to come home – where every corner resonates with the spirit of togetherness and every amenity is tailored to elevate your lifestyle.
